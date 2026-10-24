@@ -1,169 +1,72 @@
 ---
 agent: 'agent'
-description: 'Create a custom error layout component and branded error views (401, 402, 403, 404, 419, 429, 500, 503) that match the existing Chirper visual design'
+description: 'Create an error layout component and branded error views (401, 402, 403, 404, 419, 429, 500, 503) matching the Le Nkang design'
 ---
 
 ## Role
-You are a senior Laravel/Blade developer working on the Chirper project. You write clean, idiomatic Laravel 13 code and produce Tailwind CSS + DaisyUI views that are visually consistent with the rest of the application.
+You are a senior Laravel/Blade developer on Le Nkang. You write idiomatic Laravel 13 and Tailwind CSS v4 + DaisyUI views that look native to the app.
 
 ## Context
-The project uses:
-- Laravel 13 / PHP 8.4
-- Tailwind CSS v4 + DaisyUI
-- Blade anonymous components and class-based layout components
-- An existing layout component at `app/View/Components/Layouts/Main.php` that returns a view via its `render()` method
-- The corresponding blade layout file lives in `resources/views/layouts/`
-- Error views are expected at `resources/views/errors/{code}.blade.php`
+- Laravel 13 / PHP 8.4, Blade (class-based and anonymous components), Tailwind CSS v4 + DaisyUI.
+- Existing layout component: `app/View/Components/Layouts/Main.php`, rendering a blade file under `resources/views/layouts/`.
+- Laravel Boost is installed. Read its generated guidelines (`CLAUDE.md`, `AGENTS.md`, `.github/copilot-instructions.md`, `.ai/guidelines/`) and use Boost MCP tools (e.g. `application-info`, `list-routes`, `search-docs`) instead of guessing.
+- Error views live in `resources/views/errors/{code}.blade.php`.
 
 ## Task
+Do these steps **in order**.
 
-Perform the following steps **in order**:
+### Step 1: Read the codebase first
+1. `app/View/Components/Layouts/Main.php`: namespace, imports, constructor, public properties/methods (note its exact naming style, e.g. `page_title()`), what `render()` returns.
+2. The blade file it renders: `<head>` (Vite directives, meta, fonts, favicon), body classes, `{{ $slot }}` placement, footer, shared partials.
+3. Existing files in `resources/views/errors/` (if any) and any `exceptions` rendering in `bootstrap/app.php`.
+4. One or two content views (e.g. `resources/views/escorts/index.blade.php`, `resources/views/auth/login.blade.php`): exact color tokens, spacing, button and card classes, typography scale; note the centered-card pattern of the auth layout.
+5. `resources/css/app.css`: `@theme` tokens, custom properties, DaisyUI theme config.
+6. `routes/*.php`: the real route names for home and login (do not assume `escorts.index` or `login`).
 
-### Step 1 — Read the existing codebase
-Before writing any file, read and fully understand each of the following:
+### Step 2: Create `app/View/Components/Layouts/Error.php`
+- Class name is exactly `Error` (file `Error.php`) so Laravel auto-discovers `<x-layouts.error>`.
+- Mirror `Main.php` (namespace, `extends Component`, import style, PHPDoc style: one-line descriptions, no `@example`).
+- Constructor takes only an optional `public string $title = ''`. It must not require anything unavailable at error-render time.
+- Title helper (use the same naming style as `Main`, e.g. `page_title()`): returns `$title . ' - ' . config('app.name')` when `$title` is not empty, otherwise `config('app.name')`. Do not use `Route::currentRouteName()`; it is null on 404s.
+- Import everything used (`Closure`, `Illuminate\Contracts\View\View`, etc.).
+- `render()` returns `view('layouts.error')`.
 
-1. `app/View/Components/Layouts/Main.php` — study the class structure, constructor signature, public properties, and what view string the `render()` method returns.
-2. The blade file that `Main.php` renders (e.g. `resources/views/layouts/main.blade.php`) — note the HTML structure, `<head>` contents (Vite directives, meta tags, font imports), the navigation markup, `{{ $slot }}` placement, Tailwind/DaisyUI classes used, and any shared partials or sub-components included.
-3. Any existing error views under `resources/views/errors/` — note what (if anything) is already there.
-4. One or two representative content views (e.g. `resources/views/chirps/index.blade.php`, `resources/views/auth/login.blade.php`) — extract the exact color palette tokens, spacing scale, button styles, card styles, and typography scale used across the project so the error pages feel native.
-5. `resources/css/app.css` — note any custom CSS variables or `@theme` tokens defined for Tailwind v4.
+### Step 3: Create `resources/views/layouts/error.blade.php`
+- Copy `<head>` from the main layout verbatim (Vite, meta, fonts, favicon), but use the title helper for `<title>`.
+- No authenticated navigation, no `@auth`/`@guest`, no `@csrf`, no session or database access: error pages (especially 419, 500 and 503 during maintenance mode) must render without them.
+- Same `<body>` background, font stack and DaisyUI theme as the main layout.
+- Center `{{ $slot }}` using the same pattern as the auth layout if it is a centered card; include the main layout's footer markup or a minimal consistent version.
 
-### Step 2 — Create the Errors layout component class
+### Step 4: Create the eight error views
+Each view wraps its content in `<x-layouts.error title="...">`, shows the status code large (typographic scale from the project), one short friendly message, and one CTA using the exact primary button classes found in Step 1. No walls of text. Default CTA: "Go back home" linking to the real home route found in Step 1.
 
-Create `app/View/Components/Layouts/Error.php`.
+| File | title | Heading | Message | CTA |
+|---|---|---|---|---|
+| `401.blade.php` | `401 — Unauthorized` | `401` | You need to be logged in to access this page. | "Sign in" → real login route |
+| `402.blade.php` | `402 — Payment Required` | `402` | Access to this page requires an active subscription. | default |
+| `403.blade.php` | `403 — Forbidden` | `403` | You don't have permission to access this page. | default |
+| `404.blade.php` | `404 — Not Found` | `404` | The page you're looking for doesn't exist or has been moved. | default |
+| `419.blade.php` | `419 — Page Expired` | `419` | Your session has expired. Please refresh the page and try again. | "Refresh" with `onclick="window.location.reload()"` |
+| `429.blade.php` | `429 — Too Many Requests` | `429` | You've made too many requests in a short period. Please wait a moment and try again. | default |
+| `500.blade.php` | `500 — Server Error` | `500` | Something went wrong on our end. We're working on it. | default |
+| `503.blade.php` | `503 — Under Maintenance` | `503` | Le Nkang is temporarily down for maintenance. Please check back shortly. | none (the home page is also down) |
 
-Rules:
-- Mirror the structure of `Main.php` as closely as possible (same namespace, same `extends Component`, same import list pattern).
-- The class **must not** require any constructor arguments that are unavailable at error-render time (keep it argument-free or accept only optional props like `string $title = 'Error'`).
-- The `render()` method must return `view('layouts.error')`.
-- Add a `public string $title` property (default `'Chirper'`) so the blade layout can display a contextual page title.
+### Step 5: Verify discovery
+Confirm `App\View\Components\Layouts\Error` maps to `<x-layouts.error>` without manual registration. If `AppServiceProvider` registers a custom component namespace, follow it. Do not edit `config/app.php`.
 
-```php
-<?php
-
-namespace App\View\Components\Layouts;
-
-use Illuminate\View\Component;
-use Illuminate\View\View;
-
-class Errors extends Component
-{
-    /**
-     * Error layout component constructor.
-     */
-    public function __construct() {}
-
-    /**
-     * Generate the page title based on the current route name.
-     *
-     * @return string The formatted page title with app name appended
-     */
-    public function page_title(): string
-    {
-        $title = Str::of(Route::currentRouteName())
-            ->replace(['.', '-'], ' ')
-            ->replace('index', 'home', false)
-            ->title();
-
-        return $title . ' - ' . config('app.name');
-    }
-
-    /**
-     * Render the main layout component.
-     *
-     * @return View|Closure|string The rendered main layout view.
-     */
-    public function render(): View|Closure|string
-    {
-        return view('layouts.error');
-    }
-}
-```
-
-### Step 3 — Create the Errors layout blade file
-
-Create `resources/views/layouts/error.blade.php`.
-
-Rules:
-- Copy the `<head>` section **verbatim** from the main layout (same Vite directives, same meta charset/viewport, same font import if present, same favicon if present).
-- Use `{{ $page_title() }}` for the `<title>` tag.
-- Do **not** include the authenticated navigation bar — error pages are shown to any visitor regardless of auth state.
-- Keep the same `<body>` background color and font stack as the main layout.
-- Render `{{ $slot }}` centered on the page — use the same flex/grid centering pattern found in the project's auth layouts (login, register) if they use a centered card pattern.
-- Include the same footer markup (if any) as the main layout, or a minimal version consistent with it.
-- The overall look must be unmistakably "Chirper" — same background, same font, same DaisyUI theme variables.
-
-### Step 4 — Create the individual error views
-
-Create the following four files. Each must:
-- Use `<x-layouts.error />` as its wrapping component (matching Laravel's anonymous component tag convention for `App\View\Components\Layouts\Error`).
-- Display the HTTP status code in a large, visually prominent way using Tailwind classes consistent with the project's typographic scale.
-- Display a short, friendly, human-readable message.
-- Include a single clear CTA button — "Go back home" — linking to `route('chirps.index')`, styled with the same primary button classes used elsewhere in the project (inspect existing buttons in content views to get the exact classes).
-- Be concise — no walls of text.
-
-#### `resources/views/errors/401.blade.php`
-- Title: `401 — Unauthorized`
-- Heading: `401`
-- Message: `You need to be logged in to access this page.`
-- CTA: "Sign in" linking to `route('login')` instead of "Go back home"
-
-#### `resources/views/errors/402.blade.php`
-- Title: `402 — Payment Required`
-- Heading: `402`
-- Message: `Access to this page requires an active subscription.`
-
-#### `resources/views/errors/403.blade.php`
-- Title: `403 — Forbidden`
-- Heading: `403`
-- Message: `You don't have permission to access this page.`
-
-#### `resources/views/errors/404.blade.php`
-- Title: `404 — Not Found`
-- Heading: `404`
-- Message: `The page you're looking for doesn't exist or has been moved.`
-
-#### `resources/views/errors/419.blade.php`
-- Title: `419 — Page Expired`
-- Heading: `419`
-- Message: `Your session has expired. Please refresh the page and try again.`
-- CTA: "Refresh" using `onclick="window.location.reload()"` instead of a route link
-
-#### `resources/views/errors/429.blade.php`
-- Title: `429 — Too Many Requests`
-- Heading: `429`
-- Message: `You've made too many requests in a short period. Please wait a moment and try again.`
-
-#### `resources/views/errors/500.blade.php`
-- Title: `500 — Server Error`
-- Heading: `500`
-- Message: `Something went wrong on our end. We're working on it.`
-
-#### `resources/views/errors/503.blade.php`
-- Title: `503 — Under Maintenance`
-- Heading: `503`
-- Message: `Chirper is temporarily down for maintenance. Please check back shortly.`
-
-### Step 5 — Verify component auto-discovery
-
-Confirm that Laravel will auto-discover `App\View\Components\Layouts\Error` and map it to the tag `<x-layouts.error />` without any manual registration. If the project has a custom component namespace registered in `AppServiceProvider`, add the `Error` class to the same namespace. No changes to `config/app.php` or service providers should be needed for standard auto-discovery.
-
-### Step 6 — Run a quick sanity check
-
-Run the following commands and report any errors:
+### Step 6: Sanity check
+Run and report any error:
 
 ```bash
 php artisan view:clear
 php artisan config:clear
-php artisan route:list --name=chirps.index
+php artisan route:list
 ```
 
-If `chirps.index` does not exist, use the correct home/index route name found in `routes/web.php` for the CTA button.
+Then render each error view once (a Pest/PHPUnit feature test or `php artisan tinker`) and fix any failure. If the project has tests, add a small feature test asserting the 404 page returns 404 and contains the heading.
 
-## Output Quality Guidelines
-
-- **Visual consistency is the primary goal.** Extract actual class names from existing views — do not invent new ones.
-- **Do not use inline styles.** Use only Tailwind utility classes and DaisyUI component classes.
-- **Do not hardcode colors.** Use only the CSS variable tokens or Tailwind color aliases already present in the project.
-- **Match the existing code style exactly** — indentation, quote style, blade directive formatting — as found in the files you read in Step 1.
-- The 8 error views should look like they have always been part of Chirper, not like they were generated by a different tool.
+## Quality rules
+- Visual consistency is the goal: copy real class names from existing views; do not invent any.
+- No inline styles. No hardcoded colors; use existing tokens/aliases.
+- Match indentation, quote style and Blade formatting of the files read in Step 1.
+- Do not run a formatter on unrelated files.

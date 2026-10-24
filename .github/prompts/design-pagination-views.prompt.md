@@ -1,88 +1,57 @@
 ---
 agent: 'agent'
-description: 'Fill the two empty custom pagination views (pagination.paginate and pagination.simple-paginate) with Tailwind CSS + DaisyUI markup that is visually consistent with the Chirper design'
+description: 'Design the custom pagination views (pagination.paginate and pagination.simple-paginate) with Tailwind CSS + DaisyUI, consistent with Le Nkang'
 ---
 
 ## Role
-You are a senior Laravel/Blade developer working on the Chirper project. You write clean, idiomatic Blade and produce Tailwind CSS + DaisyUI views that are visually consistent with the rest of the application.
+You are a senior Laravel/Blade developer on Le Nkang. You write clean Blade with Tailwind CSS v4 + DaisyUI that looks native to the app.
 
 ## Context
-The project uses:
-- Laravel 13 / PHP 8.4
-- Tailwind CSS v4 + DaisyUI
-- Blade anonymous components
-- Bootstrap pagination is **enabled** via `Paginator::useBootstrapFive()` or similar — confirm in `AppServiceProvider.php`
-- Two custom pagination views already registered in `AppServiceProvider::boot()`:
+- Laravel 13 / PHP 8.4, Blade, Tailwind CSS v4 + DaisyUI.
+- Laravel Boost is installed: read its generated guidelines (`CLAUDE.md`, `AGENTS.md`, `.github/copilot-instructions.md`, `.ai/guidelines/`) and use Boost MCP tools (e.g. `search-docs`, `list-routes`) instead of guessing.
+- Custom views are expected to be registered in `AppServiceProvider::boot()`:
   - `Paginator::defaultView('pagination.paginate')` → `resources/views/pagination/paginate.blade.php`
   - `Paginator::defaultSimpleView('pagination.simple-paginate')` → `resources/views/pagination/simple-paginate.blade.php`
-- Both files currently contain only an empty `<div>` placeholder
 
 ## Task
+Do these steps **in order**.
 
-Perform the following steps **in order**:
+### Step 1: Read first
+1. `app/Providers/AppServiceProvider.php`: confirm the two registrations and their exact view names. If a `Paginator::useBootstrap*()`/`useTailwind()` call also exists, note that whichever runs last wins, report it, and remove it only if it is redundant.
+2. The main layout blade file (what `App\View\Components\Layouts\Main` renders): body background, font stack, DaisyUI/Tailwind tokens.
+3. Every view that calls `->links()` (search `resources/views` with grep, starting with `resources/views/escorts/index.blade.php`): surrounding container/spacing.
+4. Two or three content views (e.g. `auth/login.blade.php`, escort cards): exact primary and secondary button classes.
+5. `resources/css/app.css`: `@theme` tokens and DaisyUI theme.
+6. Both pagination views. If either already contains real markup, stop and ask before overwriting; if it is an empty placeholder, continue.
 
-### Step 1 — Read the existing codebase
+### Step 2: `pagination/paginate.blade.php`
+- Receives `$paginator` and `$elements`. Wrap everything in `@if ($paginator->hasPages())`.
+- Wrap in `<nav role="navigation" aria-label="Pagination">`; use `aria-current="page"` on the current page, `aria-disabled` on disabled controls, `rel="prev"`/`rel="next"` on the arrows.
+- **Window:** at most 3 pages before and 3 after the current page. Always show first and last page, and an ellipsis (`...`, non-interactive) where pages are skipped. Build the window from `$paginator->currentPage()`, `$paginator->lastPage()` and `$paginator->url($page)`, not from all `$elements`.
+- **Layout:** one centered row: « Previous (left), page buttons (middle), Next » (right).
+- Previous/Next use the project's primary/accent button classes (not bare `btn`). On first/last page render a non-link element with `btn-disabled` and no `href`.
+- Current page uses the active DaisyUI variant that matches the project's color scheme.
+- Make the row wrap or shrink gracefully on small screens (hide numbers beyond ±1 on mobile if needed, using responsive utilities).
+- Use only existing Tailwind/DaisyUI classes and tokens; no inline styles; no hardcoded colors.
 
-Before writing a single line, read and fully understand each of the following files:
+### Step 3: `pagination/simple-paginate.blade.php`
+- Used by `simplePaginate()`: Previous and Next only, no numbers.
+- Render only if `$paginator->hasPages()`. Same nav/aria rules.
+- « Previous disabled (`btn-disabled`, no `href`) when `$paginator->onFirstPage()`; Next » disabled when `! $paginator->hasMorePages()`.
+- Reuse the exact button classes from `paginate.blade.php`.
 
-1. `app/Providers/AppServiceProvider.php` — confirm whether Bootstrap is activated alongside the custom views, and note the exact view names registered.
-2. `resources/views/layouts/main.blade.php` (or whichever file `App\View\Components\Layouts\Main` renders) — extract the full `<head>`, body background, font stack, and every DaisyUI/Tailwind class token used.
-3. `resources/views/chirps/index.blade.php` — this is the view that renders `{{ $chirps->links() }}`; note the surrounding card/container classes, spacing scale, and color tokens so the pagination sits naturally inside it.
-4. One or two other content views (e.g. `resources/views/auth/login.blade.php`, any chirp partial) — extract the exact button classes used for primary and secondary actions (color, size, shape, hover state).
-5. `resources/css/app.css` — note any `@theme` tokens or custom CSS variables defined for Tailwind v4.
-6. `resources/views/pagination/paginate.blade.php` and `resources/views/pagination/simple-paginate.blade.php` — confirm both are empty placeholders before writing anything.
-
-> Use every available MCP server tool to read these files. Do not assume class names — extract them verbatim from the source.
-
-### Step 2 — Fill `resources/views/pagination/paginate.blade.php`
-
-Rules:
-- This view receives the `$paginator` instance automatically from Laravel.
-- Only render anything if `$paginator->hasPages()` returns `true` — wrap the entire markup in `@if ($paginator->hasPages())`.
-- **Link window:** show at most **3 pages before and 3 pages after** the current page — use `$paginator->getUrlRange()` or iterate `$elements` and slice accordingly. Do not show all pages.
-- **Structure:** a single centered row containing:
-  - A clearly recognisable **« Previous** button on the left
-  - The page number buttons in the middle
-  - A clearly recognisable **Next »** button on the right
-- **Previous / Next buttons** must be visually distinct from page number buttons — use the exact primary or accent button classes found in the existing views (not a generic `btn` alone). Disabled state (first/last page) must use the DaisyUI `btn-disabled` class and remove the `href`.
-- **Current page** button must be visually highlighted — use the active/selected DaisyUI variant consistent with the project's color scheme.
-- **Ellipsis** (`...`) must appear between the windowed range and the first/last page link when pages are skipped.
-- Use only Tailwind utility classes and DaisyUI component classes already present in the project — do not invent new ones.
-- Do not use inline styles.
-- Do not hardcode colors — use only the CSS variable tokens or Tailwind color aliases already present in `app.css` or the existing views.
-- The block must feel native to Chirper — as if it has always been part of the project.
-
-### Step 3 — Fill `resources/views/pagination/simple-paginate.blade.php`
-
-Rules:
-- This view is used by `simplePaginate()` — it only has **Previous** and **Next**, no page numbers.
-- Only render anything if `$paginator->hasPages()` returns `true`.
-- **Structure:** a single centered row with:
-  - A **« Previous** button on the left — disabled and styled with `btn-disabled` when `$paginator->onFirstPage()`
-  - A **Next »** button on the right — disabled and styled with `btn-disabled` when `!$paginator->hasMorePages()`
-- Reuse the exact same button classes determined in Step 1 for consistency with `paginate.blade.php`.
-- Same no-inline-styles, no-hardcoded-colors rules as above.
-
-### Step 4 — Verify
-
-Run the following commands and report any errors or warnings:
+### Step 4: Verify
+Run and report errors:
 
 ```bash
 php artisan view:clear
 php artisan config:clear
-php artisan route:list --name=chirps.index
+php artisan route:list
 ```
 
-Then confirm:
-- `$chirps->links()` in `chirps/index.blade.php` now renders the custom `pagination.paginate` view.
-- The link window is correctly limited to ±3 pages around the current page.
-- Previous/Next buttons are visually distinct and clearly recognisable.
-- Disabled states work correctly on the first and last pages.
+Then confirm: `->links()` renders `pagination.paginate`; the window is ±3; Previous/Next are visually distinct; disabled states work on first and last page. If the project has tests, add a feature test that requests page 2 of a paginated listing and asserts the pagination markup is present.
 
-## Output Quality Guidelines
-
-- **Visual consistency is the primary goal.** Extract actual class names from existing views — do not invent new ones.
-- **Do not use inline styles.**
-- **Do not hardcode colors.** Use only tokens already defined in the project.
-- **Match the existing code style exactly** — indentation, Blade directive formatting, quote style — as found in the files you read in Step 1.
-- The two pagination views must look like they have always been part of Chirper, not generated by an external tool.
+## Quality rules
+- Visual consistency first: reuse real class names from existing views.
+- Match indentation, Blade formatting and quote style of the files read in Step 1.
+- Do not run a formatter on unrelated files.

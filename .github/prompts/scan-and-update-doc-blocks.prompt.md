@@ -1,56 +1,44 @@
 ---
 agent: 'agent'
-description: 'Add or update PHPDoc blocks on uncommitted PHP file changes (Chirper Laravel project)'
+description: 'Add or update PHPDoc blocks on uncommitted PHP changes (Le Nkang, Laravel 13 / PHP 8.4)'
 ---
 
 ## Role
 
-Senior Laravel/PHP engineer maintaining inline code documentation for open source projects.
+Senior Laravel/PHP engineer maintaining inline documentation.
+
+## Project context
+
+Le Nkang: adults-only (18+) escort listings directory for Cameroon, Laravel 13 / PHP 8.4. Read the Boost-generated guidelines (`CLAUDE.md`, `AGENTS.md`, `.github/copilot-instructions.md`, `.ai/guidelines/`) if present, and match the doc style already used in the repo (check 2-3 documented files, and `larastan`/`phpstan` in `composer.json` for generics style).
 
 ## Task
 
-Scan the **uncommitted changes** in the current git working tree and add or update **PHPDoc blocks** on the affected PHP source files (never `.blade.php` files).
+Scan the **uncommitted changes** and add or update **PHPDoc blocks** on the affected PHP files. Never touch `.blade.php` files.
 
-### 1. Detect uncommitted changes
-- Run `git status --porcelain` to list every changed path.
-- Split the results into two buckets:
-  - **Added files** — status `??` (untracked) or `A` (staged new file).
-  - **Modified files** — status `M` (staged or unstaged modification).
-- Discard anything that isn't a `.php` file, and explicitly discard any `.blade.php` file even though it ends in `.php`.
-- If nothing matches after filtering, say so and stop — don't touch unrelated files.
+### 1. Detect changes
+- Run `git status --porcelain`.
+- Buckets: **Added** (`??`, `A`), **Modified** (`M`, `AM`, `MM`, `R` renamed with edits).
+- Keep only `*.php`; drop every `*.blade.php`, `vendor/`, `storage/`, `bootstrap/cache/`, and generated files.
+- If nothing remains, say so and stop.
 
-### 2. Added files — full doc-block pass
-For every newly added `.php` file:
-- Add a doc block above the **class** (or interface/trait/enum) declaration.
-- Add a doc block above every **property** declaration (including promoted constructor properties and enum cases where applicable).
-- Add a doc block above every **method** declaration, public, protected, and private alike.
-- Skip anything that already has a correct, compliant doc block — don't duplicate it.
+### 2. Added files: full pass
+Add a doc block above the class/interface/trait/enum, every property (including promoted constructor properties), constant, enum case, and every method (any visibility). Skip elements that already have a correct block.
 
-### 3. Modified files — targeted doc-block pass
-For every modified `.php` file:
-- Run `git diff -- <file>` (or `git diff --staged -- <file>` for staged changes) to see the actual hunks — don't re-document the whole file.
-- From the diff, identify only:
-  - **Newly added methods** in this change.
-  - **Existing methods whose signature or body was modified** in this change (changed params, return type, visibility, or logic).
-- For each of those methods only, add a doc block if missing, or rewrite the existing one if it's now inaccurate or missing pieces (e.g. a new parameter with no `@param`).
-- Do **not** touch doc blocks on methods, properties, or the class itself that weren't part of the diff — leave unrelated existing documentation exactly as-is.
+### 3. Modified files: targeted pass
+- Run `git diff HEAD -- <file>` (covers staged and unstaged) and read the hunks.
+- Document only newly added methods and existing methods whose signature, return type, visibility or logic changed. Add or rewrite their block if missing or now inaccurate (e.g. new parameter without `@param`).
+- Leave every other doc block exactly as-is.
 
-### 4. Doc-block format rules (apply everywhere in steps 2 and 3)
-- Standard PHPDoc syntax: `/** ... */`.
-- **Description is a single line**, not a wrapped paragraph — one short sentence, **under 130 characters**, summarizing what the class/property/method does or represents. No multi-line explanation underneath.
-- **Never include an `@example` tag or any usage-example snippet.**
-- Include standard tags only where they add real information:
-  - `@param <type> $<name>` for each method parameter (short, no extra description text needed beyond the type/name unless truly non-obvious).
-  - `@return <type>` for methods with a non-void return.
-  - `@throws <Exception>` only if the method visibly throws or explicitly declares it.
-  - `@var <type>` for properties whose type isn't already obvious from a typed property declaration; otherwise the one-line description alone is enough.
-- Keep tags minimal — no `@author`, `@package`, `@since`, or boilerplate tags unless the file already has an established convention using them.
+### 4. Format rules
+- `/** ... */` PHPDoc.
+- **Description is one line, under 130 characters**, not a paragraph, no restating the name.
+- **Never include `@example` or usage snippets.**
+- Tags only where useful: `@param <type> $name` per parameter; `@return <type>` for non-void methods when the native type is not precise enough (generics such as `HasMany<Comment, $this>`, `Collection<int, Escort>`, array shapes) or when the project already always uses it; `@throws` only for exceptions visibly thrown in the body or declared in a called method's doc; `@var <type>` for properties/constants whose native type is not precise.
+- No `@author`, `@package`, `@since`.
 
 ## Guidelines
 
-- Be terse. No filler, no marketing language, no restating the method name in the description.
-- Never fabricate behavior — base every description on what the code actually does, read directly from the file.
-- Don't reformat, rename, or reorder existing code — only insert/update the doc blocks themselves.
-- Don't run any formatter/linter as part of this pass; doc blocks only.
-- If a file mixes PHP with something else unexpectedly (shouldn't happen given `.blade.php` is excluded), skip it and flag it instead of guessing.
-- After the pass, list which files were touched and, for modified files, which specific methods were added/updated — so the change is easy to review in the diff.
+- Terse. No filler. No invented behavior; base everything on code you read.
+- Do not reformat, rename or reorder code. Do not run a formatter or linter.
+- If a file mixes PHP with something unexpected, skip it and flag it.
+- Finish by listing touched files and, for modified files, the specific methods added or updated.
