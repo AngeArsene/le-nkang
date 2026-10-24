@@ -1,58 +1,92 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Le Nkang
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+18+ escort-listings directory for Cameroon — currently a Laravel 13 / PHP 8.4 scaffold using Blade, Tailwind CSS v4, and Vite.
 
-## About Laravel
+## What the app does
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Le Nkang is intended to be an adults-only listings directory, but the current application only serves an empty Blade view at `/`. It does not yet provide listing browsing, registration, profile or listing management, comments, or authentication; there are no ownership-sensitive actions, custom middleware aliases, or policies in place.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [`routes/web.php`](routes/web.php) defines only the named `home` route (`/`); [`bootstrap/app.php`](bootstrap/app.php) registers console routes and Laravel's `/up` health endpoint and renders JSON exceptions for `api/*` and requests expecting JSON.
+- [`App\Models\User`](app/Models/User.php) uses Laravel's fillable/hidden attributes and hashes the password via its `hashed` cast. [`DatabaseSeeder`](database/seeders/DatabaseSeeder.php) seeds `Test User` (`test@example.com`); [`UserFactory`](database/factories/UserFactory.php) supplies the hashed default password `password`. There is no password validation rule, auth flow, or `DEFAULT_USER_*` configuration.
+- The [`user migration`](database/migrations/0001_01_01_000000_create_users_table.php) creates users with a unique email and nullable `email_verified_at`, plus password-reset-token and database-session tables. The [`cache migration`](database/migrations/0001_01_01_000001_create_cache_table.php) creates cache and cache-lock tables; the [`jobs migration`](database/migrations/0001_01_01_000002_create_jobs_table.php) creates jobs, batches, and failed-job tables. No listing, profile, or comment tables exist.
+- `DB_CONNECTION` is `sqlite` in [`.env.example`](.env.example), and `config/database.php` also supports MySQL, MariaDB, PostgreSQL, and SQL Server. The example environment uses database-backed sessions, cache, and queues.
+- Vite builds the frontend with Tailwind CSS v4. DaisyUI is not installed.
+- No custom middleware aliases, policies, request classes, rate limits, exception classes, custom error views (including 401/402/403/404/419/429/500/503), or custom pagination views are present.
 
-## Learning Laravel
+## Project structure
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```text
+app/
+  Http/Controllers/Controller.php                 # Base controller
+  Models/User.php                                 # Authenticatable user model
+  Providers/AppServiceProvider.php                # Application service provider
+bootstrap/
+  app.php                                         # Route registration and exception handling
+config/
+  database.php                                    # Database drivers; SQLite default
+database/
+  factories/UserFactory.php                      # User factory and default hashed password
+  migrations/
+    0001_01_01_000000_create_users_table.php       # Users, password-reset tokens, sessions
+    0001_01_01_000001_create_cache_table.php       # Cache and cache locks
+    0001_01_01_000002_create_jobs_table.php        # Jobs, batches, failed jobs
+  seeders/DatabaseSeeder.php                      # Seeds the fixed test user
+resources/
+  css/app.css                                     # Tailwind CSS entry point
+  views/index.blade.php                           # Empty home view
+routes/
+  console.php                                     # Inspire console command
+  web.php                                         # Named home route
+tests/
+  Feature/ExampleTest.php                         # Checks that / returns HTTP 200
+  TestCase.php                                    # Laravel feature-test base
+  Unit/ExampleTest.php                            # PHPUnit unit smoke test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Setup
 
-## Contributing
+### Quick start
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/AngeArsene/le-nkang.git
+cd le-nkang
+composer run setup
+php artisan db:seed
+composer run dev
+```
 
-## Code of Conduct
+`composer run setup` installs Composer dependencies, copies `.env.example` if `.env` is missing, generates the app key, runs migrations with `--force`, installs npm dependencies with scripts disabled, and builds the frontend. It does not seed the database.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+There are no default-user environment variables to set. Seeding creates `Test User` / `test@example.com`; there is no password validation rule, and the factory's default password is `password` (hashed). See [`DatabaseSeeder.php`](database/seeders/DatabaseSeeder.php) and [`UserFactory.php`](database/factories/UserFactory.php). This is a development test account, not a production credential.
 
-## Security Vulnerabilities
+`composer run dev` invokes `php artisan dev`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Manual steps
 
-## License
+1. `composer install`
+2. `cp .env.example .env`
+3. `php artisan key:generate`
+4. Configure the database in `.env`. The example uses SQLite; connection options are in [`config/database.php`](config/database.php).
+5. `npm install`
+6. `npm run build` (or use `npm run dev` during development)
+7. `php artisan migrate`
+8. There are no `DEFAULT_USER_*` variables to set. Seed the fixed test user with `php artisan db:seed`; its factory password is `password` (hashed), with no password validation rule. See [`UserFactory.php`](database/factories/UserFactory.php).
+9. `php artisan serve`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Laravel Herd is an alternative local PHP environment on Windows and macOS.
+
+## AI tooling
+
+Laravel Boost is installed. [`boost.json`](boost.json) enables guidelines, although `.ai/guidelines/` is not present in this checkout; project skills are in [`.ai/skills/`](.ai/skills/). The configured agents are `claude_code`, `opencode`, and `copilot`; generated agent files include [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md), while `.github/copilot-instructions.md` is absent. Run `php artisan boost:update --discover` to sync generated Boost files. MCP configuration is in [`.mcp.json`](.mcp.json) and [`opencode.json`](opencode.json).
+
+## Usage
+
+- Development: `composer run dev` (runs `php artisan dev`); web-only server: `php artisan serve`.
+- Tests: `composer run test` clears the config cache and runs `php artisan test`. The project uses PHPUnit, with tests in [`tests/Feature/ExampleTest.php`](tests/Feature/ExampleTest.php) and [`tests/Unit/ExampleTest.php`](tests/Unit/ExampleTest.php).
+- Formatting: `vendor/bin/pint`. Composer has no dedicated lint or format script.
+
+Pest is not installed.
+
+_Last synced with commit 4f644c7 (2026-10-24)_
