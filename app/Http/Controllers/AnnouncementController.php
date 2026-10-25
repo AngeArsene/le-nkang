@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
+use App\Concerns\ResolvesViewFromRoute;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
+use App\Models\Announcement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AnnouncementController extends Controller
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests,
+        ResolvesViewFromRoute;
 
     /**
      * Display a listing of the resource.

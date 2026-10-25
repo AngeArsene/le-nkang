@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
 class Announcement extends Model
 {
-    /** @use HasFactory<\Database\Factories\AnnouncementFactory> */
+    /** @use HasFactory<AnnouncementFactory> */
     use HasFactory;
 
     #[Override]

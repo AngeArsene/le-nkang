@@ -16,7 +16,7 @@ class AnnouncementTest extends TestCase
 
         $route = route('announcements.show', $announcement, false);
 
-        $this->assertSame("/announcements/skinny-delicieuse", $route);
+        $this->assertSame('/announcements/skinny-delicieuse', $route);
     }
 
     public function test_guest_user_can_view_an_announcement(): void
