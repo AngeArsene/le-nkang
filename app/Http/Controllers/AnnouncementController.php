@@ -44,7 +44,7 @@ class AnnouncementController extends Controller
     {
         $this->authorize('view', $announcement);
 
-        return view('announcements.show', compact('announcement'));
+        return $this->resolveView(compact('announcement'));
     }
 
     /**
