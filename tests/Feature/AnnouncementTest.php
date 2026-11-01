@@ -58,7 +58,9 @@ class AnnouncementTest extends TestCase
             'description' => 'Une description issue du stockage.',
         ]);
 
-        $this->get(route('announcements.show', $announcement))
+        $route = route('announcements.show', $announcement);
+
+        $this->get($route)
             ->assertOk()
             ->assertSee($announcement->title)
             ->assertSee($announcement->description)
@@ -78,7 +80,9 @@ class AnnouncementTest extends TestCase
             'description' => '<img src=x onerror=alert(1)>',
         ]);
 
-        $this->get(route('announcements.show', $announcement))
+        $route = route('announcements.show', $announcement);
+
+        $this->get($route)
             ->assertOk()
             ->assertSee('&lt;script&gt;alert(&quot;title&quot;)&lt;/script&gt;', false)
             ->assertSee('&lt;img src=x onerror=alert(1)&gt;', false)
@@ -94,7 +98,8 @@ class AnnouncementTest extends TestCase
             'title' => 'Une autre annonce',
         ]);
 
-        $response = $this->get(route('announcements.show', $announcement));
+        $route = route('announcements.show', $announcement);
+        $response = $this->get($route);
 
         $response->assertOk()
             ->assertSee($otherAnnouncement->title)
@@ -114,10 +119,12 @@ class AnnouncementTest extends TestCase
             'description' => 'Une adresse discrète.',
         ]);
 
-        $this->get(route('announcements.show', [
+        $route = route('announcements.show', [
             'announcement' => $announcement,
             'q' => 'lumineux',
-        ]))
+        ]);
+
+        $this->get($route)
             ->assertOk()
             ->assertSee($matchingAnnouncement->title)
             ->assertDontSee('Maison tranquille');
@@ -137,8 +144,10 @@ class AnnouncementTest extends TestCase
 
         Model::preventLazyLoading();
 
+        $route = route('announcements.show', $announcement);
+
         try {
-            $this->get(route('announcements.show', $announcement))->assertOk();
+            $this->get($route)->assertOk();
         } finally {
             Model::preventLazyLoading(false);
         }
