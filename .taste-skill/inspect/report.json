@@ -1,0 +1,2027 @@
+{
+ "url": "design\\prototype\\announcements-show\\index.html",
+ "at": "2026-10-25T20:42:37.370Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 12,
+    "css": 12,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 3805,
+     "screens": 4.2,
+     "words": 505,
+     "img": 15,
+     "video": 0,
+     "canvas": 0,
+     "svg": 41,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Un espace réservé aux adultes",
+     "words": 5,
+     "chars": 29,
+     "lines": 1,
+     "size": 31,
+     "vw": 2.2,
+     "font": "Playfair Display",
+     "weight": 600,
+     "tracking": -0.035,
+     "leading": 1.12,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.27,
+     "top": 359,
+     "tag": "h2",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Skinny Délicieuse",
+     "words": 2,
+     "lines": 1,
+     "size": 68,
+     "font": "Playfair Display"
+    },
+    "headings": [
+     {
+      "text": "Un espace réservé aux adultes",
+      "words": 5,
+      "chars": 29,
+      "lines": 1,
+      "size": 31,
+      "vw": 2.2,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.27,
+      "top": 359,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Skinny Délicieuse",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 68,
+      "vw": 4.7,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.34,
+      "top": 1018,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Tarifs & disponibilités",
+      "words": 3,
+      "chars": 23,
+      "lines": 1,
+      "size": 31,
+      "vw": 2.2,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.51,
+      "top": 1289,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "15 000 FCFA",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "DM Sans",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.09,
+      "top": 1388,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "À propos",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 31,
+      "vw": 2.2,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.51,
+      "top": 1632,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Informations pratiques",
+      "words": 2,
+      "chars": 22,
+      "lines": 1,
+      "size": 31,
+      "vw": 2.2,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.51,
+      "top": 1909,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "À Douala, près de vous",
+      "words": 5,
+      "chars": 22,
+      "lines": 1,
+      "size": 31,
+      "vw": 2.2,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.25,
+      "top": 2532,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "D’autres annonces à découvrir",
+      "words": 4,
+      "chars": 29,
+      "lines": 1,
+      "size": 31,
+      "vw": 2.2,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 2756,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "DM Sans",
+       "share": 0.9,
+       "mono": false
+      },
+      {
+       "family": "Playfair Display",
+       "share": 0.1,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      21,
+      22,
+      23,
+      24,
+      25,
+      27,
+      30,
+      31,
+      68
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "DM Sans",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 17.1
+     },
+     "measureChars": 91,
+     "max": {
+      "size": 68,
+      "vw": 4.7,
+      "font": "Playfair Display",
+      "text": "Skinny Délicieuse"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.16,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "En ligne",
+      "above": "Skinny Délicieuse",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 988
+     },
+     {
+      "text": "La nuit",
+      "above": "À propos",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1537
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0b0b10",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 0.19,
+      "l": 0.05
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#1c1c26",
+       "top": 206,
+       "hsl": {
+        "h": 240,
+        "s": 0.15,
+        "l": 0.13
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b7b3c1",
+       "share": 0.42
+      },
+      {
+       "color": "#f2efe9",
+       "share": 0.29
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.1
+      },
+      {
+       "color": "#918d9a",
+       "share": 0.07
+      },
+      {
+       "color": "#c9a24b",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#1c1c26",
+      "hsl": {
+       "h": 240,
+       "s": 0.15,
+       "l": 0.13
+      },
+      "fg": "#f2efe9"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 17,
+     "inHero": 12,
+     "radius": 12,
+     "height": 74,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu principal",
+      "Publier mon annonce",
+      "Connexion",
+      "Agrandir ↗",
+      "Écrire sur WhatsApp"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 1,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 7,
+     "hairlineSamples": [
+      "aside#sidebar.sidebar 248px",
+      "header.topbar 1192px",
+      "dl.hours-list 731px",
+      "div 731px",
+      "div 731px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 1,
+     "roundedBoxes": 14,
+     "boxRadius": 24,
+     "squareMedia": 0,
+     "roundedMedia": 9,
+     "mediaRadius": 24,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 8,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 2840
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.37
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 900,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "dm sans",
+     "playfair display"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 3805,
+    "margins": {
+     "left": 296,
+     "right": 48
+    },
+    "sections": [
+     {
+      "sel": "header.topbar",
+      "tag": "header",
+      "top": 0,
+      "height": 125,
+      "words": 9,
+      "media": 0,
+      "middle": 266,
+      "heading": null,
+      "left": 296,
+      "right": 66,
+      "textLeft": 766,
+      "textRight": 66,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": true
+     },
+     {
+      "sel": "div.detail-layout",
+      "tag": "div",
+      "top": 206,
+      "height": 2234,
+      "words": 236,
+      "media": 1,
+      "middle": 66,
+      "heading": {
+       "text": "Skinny Délicieuse",
+       "size": 68,
+       "tag": "h1"
+      },
+      "left": 295,
+      "right": 66,
+      "textLeft": 296,
+      "textRight": 66,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": true
+     },
+     {
+      "sel": "section.neighborhood-section.reveal",
+      "tag": "section",
+      "top": 2532,
+      "height": 132,
+      "words": 21,
+      "media": 0,
+      "middle": 397,
+      "heading": null,
+      "left": 296,
+      "right": 70,
+      "textLeft": 296,
+      "textRight": 70,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#similar.similar-section.reveal",
+      "tag": "section",
+      "top": 2756,
+      "height": 813,
+      "words": 106,
+      "media": 8,
+      "middle": 17,
+      "heading": {
+       "text": "Naya Lumière",
+       "size": 24,
+       "tag": "span"
+      },
+      "left": 296,
+      "right": 48,
+      "textLeft": 296,
+      "textRight": 60,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer#footer.footer",
+      "tag": "footer",
+      "top": 3633,
+      "height": 172,
+      "words": 18,
+      "media": 0,
+      "middle": 469,
+      "heading": {
+       "text": "Le",
+       "size": 23,
+       "tag": "span"
+      },
+      "left": 296,
+      "right": 48,
+      "textLeft": 296,
+      "textRight": 48,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Skinny Délicieuse",
+      "size": 68,
+      "top": 1018,
+      "firstScreen": false
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 296,
+      "n": 10
+     },
+     {
+      "x": 366,
+      "n": 1
+     },
+     {
+      "x": 673,
+      "n": 1
+     },
+     {
+      "x": 1092,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 13,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.04,
+    "voidBox": {
+     "x": 540,
+     "y": 120,
+     "w": 900,
+     "h": 60
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 12,
+    "css": 12,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 4309,
+     "screens": 4.2,
+     "words": 504,
+     "img": 15,
+     "video": 0,
+     "canvas": 0,
+     "svg": 41,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Un espace réservé aux adultes",
+     "words": 5,
+     "chars": 29,
+     "lines": 1,
+     "size": 31,
+     "vw": 4,
+     "font": "Playfair Display",
+     "weight": 600,
+     "tracking": -0.035,
+     "leading": 1.12,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.51,
+     "top": 421,
+     "tag": "h2",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Skinny Délicieuse",
+     "words": 2,
+     "lines": 1,
+     "size": 38.4,
+     "font": "Playfair Display"
+    },
+    "headings": [
+     {
+      "text": "Un espace réservé aux adultes",
+      "words": 5,
+      "chars": 29,
+      "lines": 1,
+      "size": 31,
+      "vw": 4,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.51,
+      "top": 421,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Skinny Délicieuse",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 1005,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Un échange direct",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 27,
+      "vw": 3.5,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 2433,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "DM Sans",
+       "share": 0.89,
+       "mono": false
+      },
+      {
+       "family": "Playfair Display",
+       "share": 0.11,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      23,
+      24,
+      25,
+      27,
+      31,
+      38
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "DM Sans",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 17.1
+     },
+     "measureChars": 90,
+     "max": {
+      "size": 38.4,
+      "vw": 5,
+      "font": "Playfair Display",
+      "text": "Skinny Délicieuse"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.16,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "En ligne",
+      "above": "Skinny Délicieuse",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 976
+     },
+     {
+      "text": "Disponible",
+      "above": "Un échange direct",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 2401
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0b0b10",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 0.19,
+      "l": 0.05
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#14141b",
+       "top": 0,
+       "hsl": {
+        "h": 240,
+        "s": 0.15,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#1c1c26",
+       "top": 206,
+       "hsl": {
+        "h": 240,
+        "s": 0.15,
+        "l": 0.13
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b7b3c1",
+       "share": 0.42
+      },
+      {
+       "color": "#f2efe9",
+       "share": 0.29
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.1
+      },
+      {
+       "color": "#918d9a",
+       "share": 0.07
+      },
+      {
+       "color": "#c9a24b",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#1c1c26",
+      "hsl": {
+       "h": 240,
+       "s": 0.15,
+       "l": 0.13
+      },
+      "fg": "#f2efe9"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 17,
+     "inHero": 10,
+     "radius": 12,
+     "height": 74,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu principal",
+      "Publier mon annonce",
+      "Connexion",
+      "Agrandir ↗",
+      "J’ai 18 ans ou plus"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 1,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 7,
+     "hairlineSamples": [
+      "aside#sidebar.sidebar 320px",
+      "header.topbar 768px",
+      "dl.hours-list 720px",
+      "div 720px",
+      "div 720px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 1,
+     "roundedBoxes": 14,
+     "boxRadius": 24,
+     "squareMedia": 0,
+     "roundedMedia": 9,
+     "mediaRadius": 24,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 8,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 3110
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.62
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 1024,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "dm sans",
+     "playfair display"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 4309,
+    "margins": {
+     "left": 24,
+     "right": 24
+    },
+    "sections": [
+     {
+      "sel": "header.topbar",
+      "tag": "header",
+      "top": 0,
+      "height": 125,
+      "words": 8,
+      "media": 0,
+      "middle": 68,
+      "heading": {
+       "text": "Le",
+       "size": 23,
+       "tag": "span"
+      },
+      "left": 25,
+      "right": 43,
+      "textLeft": 137,
+      "textRight": 43,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": true
+     },
+     {
+      "sel": "article#announcement.announcement",
+      "tag": "article",
+      "top": 206,
+      "height": 2144,
+      "words": 189,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Skinny Délicieuse",
+       "size": 38,
+       "tag": "h1"
+      },
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "aside.contact-column",
+      "tag": "aside",
+      "top": 2376,
+      "height": 427,
+      "words": 47,
+      "media": 0,
+      "middle": 98,
+      "heading": {
+       "text": "Un échange direct",
+       "size": 27,
+       "tag": "h2"
+      },
+      "left": 44,
+      "right": 42,
+      "textLeft": 44,
+      "textRight": 42,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.neighborhood-section.reveal",
+      "tag": "section",
+      "top": 2857,
+      "height": 124,
+      "words": 21,
+      "media": 0,
+      "middle": 20,
+      "heading": null,
+      "left": 24,
+      "right": 46,
+      "textLeft": 24,
+      "textRight": 46,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#similar.similar-section.reveal",
+      "tag": "section",
+      "top": 3035,
+      "height": 1039,
+      "words": 106,
+      "media": 8,
+      "middle": 17,
+      "heading": null,
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 36,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer#footer.footer",
+      "tag": "footer",
+      "top": 4138,
+      "height": 172,
+      "words": 18,
+      "media": 0,
+      "middle": 90,
+      "heading": {
+       "text": "Le",
+       "size": 23,
+       "tag": "span"
+      },
+      "left": 25,
+      "right": 25,
+      "textLeft": 25,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Skinny Délicieuse",
+      "size": 38,
+      "top": 1005,
+      "firstScreen": false
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 24,
+      "n": 10
+     },
+     {
+      "x": 44,
+      "n": 1
+     },
+     {
+      "x": 94,
+      "n": 1
+     },
+     {
+      "x": 396,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 13,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 12,
+    "css": 12,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 3942,
+     "screens": 4.7,
+     "words": 505,
+     "img": 15,
+     "video": 0,
+     "canvas": 0,
+     "svg": 41,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Skinny Délicieuse",
+     "words": 2,
+     "chars": 17,
+     "lines": 1,
+     "size": 39,
+     "vw": 10,
+     "font": "Playfair Display",
+     "weight": 600,
+     "tracking": -0.055,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.72,
+     "top": 722,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Skinny Délicieuse",
+     "words": 2,
+     "lines": 1,
+     "size": 39,
+     "font": "Playfair Display"
+    },
+    "headings": [
+     {
+      "text": "Le Nkang",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Playfair Display",
+      "weight": 400,
+      "tracking": -0.045,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.34,
+      "top": 20,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "18+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 25,
+      "vw": 6.4,
+      "font": "Playfair Display",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.16,
+      "top": 204,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Un espace réservé aux adultes",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 31,
+      "vw": 7.9,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 313,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Skinny Délicieuse",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 39,
+      "vw": 10,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.72,
+      "top": 722,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Tarifs & disponibilités",
+      "words": 3,
+      "chars": 23,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1014,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "15 000 FCFA",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 27,
+      "vw": 6.9,
+      "font": "DM Sans",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.32,
+      "top": 1145,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "À propos",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1372,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Informations pratiques",
+      "words": 2,
+      "chars": 22,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1647,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Un échange direct",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 27,
+      "vw": 6.9,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 2402,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "À Douala, près de vous",
+      "words": 5,
+      "chars": 22,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2932,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "D’autres annonces à découvrir",
+      "words": 4,
+      "chars": 29,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Playfair Display",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.86,
+      "top": 3199,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le Nkang",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Playfair Display",
+      "weight": 400,
+      "tracking": -0.045,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.34,
+      "top": 3590,
+      "tag": "a",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 12,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 2,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "DM Sans",
+       "share": 0.89,
+       "mono": false
+      },
+      {
+       "family": "Playfair Display",
+       "share": 0.11,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      23,
+      25,
+      26,
+      27,
+      31,
+      39
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "DM Sans",
+      "size": 16,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 17.1
+     },
+     "measureChars": 45,
+     "max": {
+      "size": 39,
+      "vw": 10,
+      "font": "Playfair Display",
+      "text": "Skinny Délicieuse"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.15,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "En ligne",
+      "above": "Skinny Délicieuse",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 691
+     },
+     {
+      "text": "Disponible",
+      "above": "Un échange direct",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 13,
+      "top": 2370
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0b0b10",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 0.19,
+      "l": 0.05
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#14141b",
+       "top": 0,
+       "hsl": {
+        "h": 240,
+        "s": 0.15,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#1c1c26",
+       "top": 175,
+       "hsl": {
+        "h": 240,
+        "s": 0.15,
+        "l": 0.13
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b7b3c1",
+       "share": 0.43
+      },
+      {
+       "color": "#f2efe9",
+       "share": 0.28
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.1
+      },
+      {
+       "color": "#c9a24b",
+       "share": 0.07
+      },
+      {
+       "color": "#918d9a",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#14141b",
+      "hsl": {
+       "h": 240,
+       "s": 0.15,
+       "l": 0.09
+      },
+      "fg": "#f2efe9"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 17,
+     "inHero": 10,
+     "radius": 13,
+     "height": 64,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu principal",
+      "Agrandir ↗",
+      "WhatsApp",
+      "Appeler",
+      "J’ai 18 ans ou plus"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 1,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 9,
+     "hairlineSamples": [
+      "aside#sidebar.sidebar 320px",
+      "header.topbar 390px",
+      "dl.hours-list 358px",
+      "div 358px",
+      "div 358px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 5,
+     "boxRadius": 24,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.51
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 844,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "dm sans",
+     "playfair display"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 3942,
+    "margins": {
+     "left": 16,
+     "right": 13
+    },
+    "sections": [
+     {
+      "sel": "article#announcement.announcement",
+      "tag": "article",
+      "top": 175,
+      "height": 2147,
+      "words": 189,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Skinny Délicieuse",
+       "size": 39,
+       "tag": "h1"
+      },
+      "left": 10,
+      "right": 8,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "aside.contact-column",
+      "tag": "aside",
+      "top": 2349,
+      "height": 535,
+      "words": 47,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Un échange direct",
+       "size": 27,
+       "tag": "h2"
+      },
+      "left": 33,
+      "right": 20,
+      "textLeft": 33,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.neighborhood-section.reveal",
+      "tag": "section",
+      "top": 2932,
+      "height": 219,
+      "words": 21,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 21,
+      "textLeft": 16,
+      "textRight": 21,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#similar.similar-section.reveal",
+      "tag": "section",
+      "top": 3199,
+      "height": 333,
+      "words": 90,
+      "media": 0,
+      "middle": 6,
+      "heading": null,
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer#footer.footer",
+      "tag": "footer",
+      "top": 3565,
+      "height": 223,
+      "words": 18,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Le",
+       "size": 23,
+       "tag": "span"
+      },
+      "left": 18,
+      "right": 70,
+      "textLeft": 18,
+      "textRight": 70,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Skinny Délicieuse",
+      "size": 39,
+      "top": 722,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 11
+     },
+     {
+      "x": 33,
+      "n": 1
+     },
+     {
+      "x": 77,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 13,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "2 eyebrow/kicker label(s) above headings: \"En ligne\" above \"Skinny Délicieuse\"; \"La nuit\" above \"À propos\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "7 thin rule(s)/divider line(s): aside#sidebar.sidebar 248px | header.topbar 1192px | dl.hours-list 731px | div 731px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (text #f2efe9).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "15 different font sizes (13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 27, 30, 31, 68).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 0 picture(s) on the page (0 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "measure",
+   "width": 1440,
+   "message": "Longest paragraph runs about 91 characters per line.",
+   "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch).",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "off-centre",
+   "width": 1440,
+   "message": "The page sits off-centre: its content comes to 296px from the left edge but only to 48px from the right, at 1440px.",
+   "fix": "Give the page one pair of equal margins. Check the wrapper for a max-width without margin-inline: auto, a grid with an empty last column, or padding on one side only. If one side is meant to hold air, it must still be closed by something that reaches the margin (a picture, the navigation's last item, a figure)."
+  },
+  {
+   "level": "FAIL",
+   "id": "no-title",
+   "width": 1440,
+   "message": "The h1 (\"Skinny Délicieuse\") is not on the first screen (it starts 1018px down).",
+   "fix": "The title belongs on the first screen, where a visitor decides whether to stay.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "covered-text",
+   "width": 1440,
+   "message": "Large text lies under another element at some scroll position: \"Un échange direct\" (screen 3, 100% hidden); \"Skinny Délicieuse\" (screen 2, 100% hidden); \"Tarifs & disponibilités\" (screen 2, 100% hidden); \"À propos\" (screen 2, 100% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Little motion: 12 element(s) moved while the page loaded and scrolled.",
+   "fix": "Give every section an entrance for its parts (not one fade of the whole block) and add one moving picture: a looping clip or a slow move on a photograph."
+  },
+  {
+   "level": "FAIL",
+   "id": "late-title",
+   "width": 768,
+   "message": "The title is not readable 1.2s after the page loaded (something lies over it).",
+   "fix": "Put the headline in the HTML, painted on the first frame; the load sequence only adds arrival and is settled by 1.2s (references/motion.md, \"Load sequence in 1.2 seconds\"). No preloader, no gate, no waiting for the load event.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "glass",
+   "width": 390,
+   "message": "2 backdrop-blur surfaces.",
+   "fix": "One blurred sticky bar at most; glass cards are a tell."
+  },
+  {
+   "level": "WARN",
+   "id": "name-only-title",
+   "width": 390,
+   "message": "The h1 is a bare name (\"Skinny Délicieuse\") and nothing else on the first screen says what this is.",
+   "fix": "Keep the name if it leads, and give the line under it (18px or more) the plain words: what it is, for whom, where or when. In the study of 97 Sites of the Day, first screens that named nothing lost usability and content points."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\desktop-page-01.jpg",
+    "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\WINDOWS10\\Herd\\le-nkang\\.taste-skill\\inspect\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

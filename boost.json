@@ -17,6 +17,7 @@
         "conventional-commits",
         "cruddy-controllers",
         "oop-affordances",
-        "tdd-laravel"
+        "tdd-laravel",
+        "ui-ux-pro-max"
     ]
 }
