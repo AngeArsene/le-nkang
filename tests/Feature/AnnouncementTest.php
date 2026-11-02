@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Announcement;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class AnnouncementTest extends TestCase
@@ -51,28 +49,6 @@ class AnnouncementTest extends TestCase
         $this->get('/announcements/not-a-real-announcement')->assertNotFound();
     }
 
-    public function test_announcement_page_renders_supported_content_and_hides_unsupported_sections(): void
-    {
-        $announcement = Announcement::factory()->create([
-            'title' => 'Annonce publique',
-            'description' => 'Une description issue du stockage.',
-        ]);
-
-        $route = route('announcements.show', $announcement);
-
-        $this->get($route)
-            ->assertOk()
-            ->assertSee($announcement->title)
-            ->assertSee($announcement->description)
-            ->assertSee('Aucune photo')
-            ->assertDontSee('Tarifs')
-            ->assertDontSee('Avis')
-            ->assertDontSee('FCFA')
-            ->assertDontSee('wa.me')
-            ->assertDontSee('tel:')
-            ->assertDontSee('1 284');
-    }
-
     public function test_announcement_content_is_escaped_in_the_rendered_page(): void
     {
         $announcement = Announcement::factory()->create([
@@ -90,68 +66,24 @@ class AnnouncementTest extends TestCase
             ->assertDontSee('<img src=x onerror=alert(1)>', false);
     }
 
-    public function test_other_announcements_exclude_the_current_announcement(): void
+    public static function announcementDescriptionsProvider(): array
     {
-        $announcement = Announcement::factory()->create(['slug' => 'current-announcement']);
-        $otherAnnouncement = Announcement::factory()->create([
-            'slug' => 'another-announcement',
-            'title' => 'Une autre annonce',
-        ]);
-
-        $route = route('announcements.show', $announcement);
-        $response = $this->get($route);
-
-        $response->assertOk()
-            ->assertSee($otherAnnouncement->title)
-            ->assertSee('class="announcement-card" href="'.route('announcements.show', $otherAnnouncement).'"', false)
-            ->assertDontSee('class="announcement-card" href="'.route('announcements.show', $announcement).'"', false);
+        return [
+            'description with 150 characters' => [fake()->text(150)],
+            'description with less than 150 characters' => [fake()->text(random_int(10, 149))],
+        ];
     }
 
-    public function test_search_filters_other_announcements_by_title_and_description(): void
+    #[DataProvider('announcementDescriptionsProvider')]
+    public function test_see_more_button_is_hidden_when_description_is_150_characters_or_less(string $description): void
     {
-        $announcement = Announcement::factory()->create(['slug' => 'current-announcement']);
-        $matchingAnnouncement = Announcement::factory()->create([
-            'title' => 'Atelier lumineux',
-            'description' => 'Un endroit clair et calme.',
-        ]);
-        Announcement::factory()->create([
-            'title' => 'Maison tranquille',
-            'description' => 'Une adresse discrète.',
-        ]);
+        $announcement = Announcement::factory()->create(['description' => $description]);
 
-        $route = route('announcements.show', [
-            'announcement' => $announcement,
-            'q' => 'lumineux',
-        ]);
+        $route = route('announcements.show', $announcement);
 
         $this->get($route)
             ->assertOk()
-            ->assertSee($matchingAnnouncement->title)
-            ->assertDontSee('Maison tranquille');
-    }
-
-    public function test_related_listings_are_loaded_without_lazy_loading_or_n_plus_one_queries(): void
-    {
-        $announcement = Announcement::factory()->create();
-        Announcement::factory()->count(6)->create();
-        $queries = [];
-
-        DB::listen(function (QueryExecuted $query) use (&$queries): void {
-            if (str_starts_with(strtolower($query->sql), 'select')) {
-                $queries[] = $query->sql;
-            }
-        });
-
-        Model::preventLazyLoading();
-
-        $route = route('announcements.show', $announcement);
-
-        try {
-            $this->get($route)->assertOk();
-        } finally {
-            Model::preventLazyLoading(false);
-        }
-
-        $this->assertCount(2, $queries);
+            ->assertDontSee('Lire la suite')
+            ->assertDontSee('<span id="dots">...</span>', false);
     }
 }

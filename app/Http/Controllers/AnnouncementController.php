@@ -7,8 +7,6 @@ use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
 use App\Models\Announcement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class AnnouncementController extends Controller
@@ -43,28 +41,9 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Announcement $announcement): View
+    public function show(Announcement $announcement): View
     {
-        $this->authorize('view', $announcement);
-
-        $validated = $request->validate([
-            'q' => ['nullable', 'string', 'max:100'],
-        ]);
-        $search = Str::squish($validated['q'] ?? '');
-        $otherAnnouncements = Announcement::query()
-            ->otherThan($announcement)
-            ->matching($search)
-            ->latest()
-            ->orderByDesc('id')
-            ->limit(6)
-            ->get();
-
-        return $this->resolveView([
-            'announcement' => $announcement,
-            'metaDescription' => Str::limit(Str::squish($announcement->description), 160),
-            'otherAnnouncements' => $otherAnnouncements,
-            'search' => $search,
-        ]);
+        return $this->resolveView(compact('announcement'));
     }
 
     /**
