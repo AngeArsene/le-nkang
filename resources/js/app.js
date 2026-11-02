@@ -54,6 +54,9 @@ gallery();
 /* About: read more */
 $("#more").onclick = (e) => {
     const open = $("#about").classList.toggle("open");
+    $('#lessText').style.display = !open ? 'none' : 'inline';
+    $('#dots').style.display = open ? 'none' : 'inline';
+    $('#about').style.textOverflow = !open ? 'none' : 'clip';
     e.currentTarget.textContent = open ? "Réduire" : "Lire la suite";
     e.currentTarget.setAttribute("aria-expanded", open);
 };

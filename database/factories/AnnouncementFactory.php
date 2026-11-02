@@ -20,7 +20,7 @@ class AnnouncementFactory extends Factory
         return [
             'slug' => $this->faker->unique()->slug(4),
             'title' => $this->faker->sentence(4),
-            'description' => $this->faker->paragraph(3),
+            'description' => $this->faker->paragraph(5, true),
         ];
     }
 }

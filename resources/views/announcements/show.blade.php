@@ -157,7 +157,7 @@
                         </svg><span class="sr">Profil vérifié</span></span>
                 </div>
                 <div>
-                    <h1>Skinny<br>Délicieuse</h1>
+                    <h1>{{ $announcement->title }}</h1>
                     <div class="hero-sub"><span class="tier">OR</span><span class="muted">Annonce indépendante ·
                             Bonapriso, Douala</span></div>
                     <ul class="meta">
@@ -190,14 +190,16 @@
             <section class="card beige about" aria-labelledby="t-about">
                 <h2 id="t-about">À propos</h2>
                 <div class="clamp" id="about">
-                    <p>Bonjour, moi c’est Skinny. Je vous accueille dans un cadre discret à Bonapriso, à Douala. J’aime
-                        les échanges simples et respectueux, et je prends le temps de convenir de chaque détail avant un
-                        rendez-vous.</p>
-                    <p>Écrivez-moi pour connaître mes disponibilités et les modalités. Je réponds dès que possible, en
-                        journée comme en soirée.</p>
+                    <p @style(['display: inline'])>{{ mb_substr($announcement->description, 0, 150) }}</p>
+                    @if (Str::length($announcement->description) > 150)
+                        <span id="dots">...</span>
+                    @endif
+                    <p id="lessText" @style(['display: none'])>{{ mb_substr($announcement->description, 150) }}</p>
                 </div>
-                <button class="btn dark sm" id="more" aria-expanded="false" aria-controls="about">Lire la
-                    suite</button>
+                @if (Str::length($announcement->description) > 150)
+                    <button class="btn dark sm" id="more" aria-expanded="false" aria-controls="about">Lire la
+                        suite</button>
+                @endif
             </section>
 
             <div class="bento">
@@ -442,5 +444,4 @@
             </svg>Appeler</a>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="main.js"></script>
 </x-layouts.main>
