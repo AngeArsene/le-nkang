@@ -143,15 +143,15 @@ function renderGrid() {
         `${list.length} annonce${list.length > 1 ? "s" : ""} affichée${list.length > 1 ? "s" : ""}`;
     $("#grid").innerHTML = list.length
         ? list
-              .map(
-                  (l) => `
+            .map(
+                (l) => `
     <a class="gcard" href="#">
       <span class="gimg"><img src="${IMG[l.img]}" alt="Portrait de ${l.n}" loading="lazy"><em class="gt">${l.t}</em>${l.on ? '<em class="go"><i></i>En ligne</em>' : ""}</span>
       <b>${l.n}</b><small>${l.q}${l.video ? " · Vidéo" : ""}</small>
       <span class="gp">${fmt(l.p)} <small>FCFA</small></span>
     </a>`,
-              )
-              .join("")
+            )
+            .join("")
         : '<p class="empty">Aucune annonce dans ce quartier pour le moment.</p>';
 }
 $("#chips").addEventListener("click", (e) => {
