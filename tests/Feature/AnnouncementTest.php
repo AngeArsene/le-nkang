@@ -69,8 +69,8 @@ class AnnouncementTest extends TestCase
     public static function announcementDescriptionsProvider(): array
     {
         return [
-            'description with 150 characters' => [fake()->text(150)],
-            'description with less than 150 characters' => [fake()->text(random_int(10, 149))],
+            'description with exactly 150 characters' => [str_repeat('a', 150)],
+            'description with less than 150 characters' => [str_repeat('a', random_int(10, 149))],
         ];
     }
 
@@ -85,5 +85,17 @@ class AnnouncementTest extends TestCase
             ->assertOk()
             ->assertDontSee('Lire la suite')
             ->assertDontSee('<span id="dots">...</span>', false);
+    }
+
+    public function test_see_more_button_is_visible_when_description_is_more_than_150_characters(): void
+    {
+        $announcement = Announcement::factory()->create(['description' => str_repeat('a', random_int(151, 1000))]);
+
+        $route = route('announcements.show', $announcement);
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee('Lire la suite')
+            ->assertSee('<span id="dots">...</span>', false);
     }
 }
