@@ -12,10 +12,10 @@ class SanityTest extends TestCase
      */
     public function test_application_is_up_and_running(): void
     {
-        $this->get('/')->assertStatus(200);
+        $this->get('/')->assertOk();
 
         $this->get('/up')
-            ->assertStatus(200)
+            ->assertOk()
             ->assertSee('Le Nkang')
             ->assertSee('Application up')
             ->assertSee('HTTP request received.');
