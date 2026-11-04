@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Announcement;
+use Carbon\CarbonInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -97,5 +98,31 @@ class AnnouncementTest extends TestCase
             ->assertOk()
             ->assertSee('Lire la suite')
             ->assertSee('<span id="dots">...</span>', false);
+    }
+
+    public static function publishedAtProvider(): array
+    {
+        return [
+            'published 1 day ago' => [now()->subDay(), 'il y a 1 jour'],
+            'published 2 days ago' => [now()->subDays(2), 'il y a 2 jours'],
+            'published 1 week ago' => [now()->subWeek(), 'il y a 1 semaine'],
+            'published 2 weeks ago' => [now()->subWeeks(2), 'il y a 2 semaines'],
+            'published 1 month ago' => [now()->subMonth(), 'il y a 1 mois'],
+            'published 2 months ago' => [now()->subMonths(2), 'il y a 2 mois'],
+            'published 1 year ago' => [now()->subYear(), 'il y a 1 an'],
+            'published 2 years ago' => [now()->subYears(2), 'il y a 2 ans'],
+        ];
+    }
+
+    #[DataProvider('publishedAtProvider')]
+    public function test_displayed_published_date_is_formatted(CarbonInterface $createdAt, string $expected): void
+    {
+        $announcement = Announcement::factory()->create(['created_at' => $createdAt]);
+
+        $route = route('announcements.show', $announcement);
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee("Publiée $expected");
     }
 }

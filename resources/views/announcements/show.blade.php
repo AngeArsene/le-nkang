@@ -219,7 +219,7 @@
                             <span data-likes>128</span>
                             favoris
                         </li>
-                        <li>Publiée il y a 2 jours</li>
+                        <li>Publiée {{ $announcement->created_at->diffForHumans() }}</li>
                         <li><a href="#avis">★ <span data-avg>4,7</span> · <span data-total>36</span> avis</a></li>
                     </ul>
                 </div>
