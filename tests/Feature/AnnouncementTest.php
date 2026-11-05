@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
+/**
+ * Verifies announcement URL, access, rendering, and publication-date behavior.
+ */
 class AnnouncementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Disables Vite asset generation for feature-test requests.
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -19,7 +25,10 @@ class AnnouncementTest extends TestCase
         $this->withoutVite();
     }
 
-    public function test_announcement_url_uses_slug(): void
+    /**
+     * Confirms announcement routes use the model's slug as the URL segment.
+     */
+    public function testAnnouncementUrlUsesSlug(): void
     {
         $announcement = Announcement::factory()->create(['slug' => 'skinny-delicieuse']);
 
@@ -28,7 +37,10 @@ class AnnouncementTest extends TestCase
         $this->assertSame('/announcements/skinny-delicieuse', $route);
     }
 
-    public function test_guest_user_can_view_an_announcement(): void
+    /**
+     * Confirms guests can view an announcement and its title and description.
+     */
+    public function testGuestUserCanViewAnAnnouncement(): void
     {
         $announcement = Announcement::factory()->create([
             'title' => 'Skinny Délicieuse',
@@ -45,12 +57,18 @@ class AnnouncementTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_unknown_announcement_slug_returns_not_found(): void
+    /**
+     * Confirms an unknown announcement slug returns a not-found response.
+     */
+    public function testUnknownAnnouncementSlugReturnsNotFound(): void
     {
         $this->get('/announcements/not-a-real-announcement')->assertNotFound();
     }
 
-    public function test_announcement_content_is_escaped_in_the_rendered_page(): void
+    /**
+     * Confirms announcement title and description are escaped in the rendered page.
+     */
+    public function testAnnouncementContentIsEscapedInTheRenderedPage(): void
     {
         $announcement = Announcement::factory()->create([
             'title' => '<script>alert("title")</script>',
@@ -67,6 +85,11 @@ class AnnouncementTest extends TestCase
             ->assertDontSee('<img src=x onerror=alert(1)>', false);
     }
 
+    /**
+     * Provides descriptions at and below the threshold for hiding the read-more control.
+     *
+     * @return array<string, array{string}>
+     */
     public static function announcementDescriptionsProvider(): array
     {
         return [
@@ -75,8 +98,11 @@ class AnnouncementTest extends TestCase
         ];
     }
 
+    /**
+     * Confirms descriptions of 150 characters or less do not show the read-more control.
+     */
     #[DataProvider('announcementDescriptionsProvider')]
-    public function test_see_more_button_is_hidden_when_description_is_150_characters_or_less(string $description): void
+    public function testSeeMoreButtonIsHiddenWhenDescriptionIs150CharactersOrLess(string $description): void
     {
         $announcement = Announcement::factory()->create(['description' => $description]);
 
@@ -88,7 +114,10 @@ class AnnouncementTest extends TestCase
             ->assertDontSee('<span id="dots">...</span>', false);
     }
 
-    public function test_see_more_button_is_visible_when_description_is_more_than_150_characters(): void
+    /**
+     * Confirms descriptions longer than 150 characters show the read-more control.
+     */
+    public function testSeeMoreButtonIsVisibleWhenDescriptionIsMoreThan150Characters(): void
     {
         $announcement = Announcement::factory()->create(['description' => str_repeat('a', random_int(151, 1000))]);
 
@@ -100,6 +129,11 @@ class AnnouncementTest extends TestCase
             ->assertSee('<span id="dots">...</span>', false);
     }
 
+    /**
+     * Provides publication dates and their expected relative labels.
+     *
+     * @return array<string, array{CarbonInterface, string}>
+     */
     public static function publishedAtProvider(): array
     {
         return [
@@ -114,8 +148,11 @@ class AnnouncementTest extends TestCase
         ];
     }
 
+    /**
+     * Confirms publication dates are displayed with the expected relative label.
+     */
     #[DataProvider('publishedAtProvider')]
-    public function test_displayed_published_date_is_formatted(CarbonInterface $createdAt, string $expected): void
+    public function testDisplayedPublishedDateIsFormatted(CarbonInterface $createdAt, string $expected): void
     {
         $announcement = Announcement::factory()->create(['created_at' => $createdAt]);
 
