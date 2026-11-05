@@ -5,12 +5,15 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Verifies the application health endpoints return the expected content.
+ */
 class SanityTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Confirms the home page and health endpoint respond successfully with expected status content.
      */
-    public function test_application_is_up_and_running(): void
+    public function testApplicationIsUpAndRunning(): void
     {
         $this->get('/')->assertOk();
 
