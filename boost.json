@@ -15,9 +15,17 @@
         "testing-best-practices",
         "tailwindcss-development",
         "conventional-commits",
+        "create-docblocks",
+        "create-readme",
         "cruddy-controllers",
+        "design-announcement-show",
+        "error-views",
         "oop-affordances",
+        "pagination-views",
+        "design-taste-frontend",
         "tdd-laravel",
-        "ui-ux-pro-max"
+        "ui-ux-pro-max",
+        "update-docblocks",
+        "update-readme"
     ]
 }
