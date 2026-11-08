@@ -1,52 +1,88 @@
 ---
 name: update-readme
-description: Update an existing Le Nkang README.md with only what the current feature branch adds (new features, files, structure entries, status footer), leaving all accurate content untouched. Use whenever the user wants to document a feature branch, update the README before a PR or merge, or says "update the README with this branch", "mettre à jour le README avec la branche". Never creates a README from scratch; if none exists, tell the user to use le-nkang-create-readme.
+description: >-
+  Update an existing Le Nkang README.md with only what changed since the last
+  commit mentioned at the end of the README (the "Last synced with commit"
+  footer): new features, files, structure entries, status footer. Covers added,
+  modified, deleted, renamed and untracked files, committed or not. Leaves all
+  accurate content untouched. Use whenever the user wants to document a feature
+  branch, update the README before a PR or merge, or says "update the README
+  with this branch", "mettre à jour le README avec la branche". Never creates a
+  README from scratch; if none exists, tell the user to use le-nkang-create-readme.
 ---
 
-# Le Nkang: update README.md for the current feature branch
+# Le Nkang: update README.md since the last synced commit
 
 Act as a senior Laravel engineer maintaining project documentation. Le Nkang is an adults-only (18+) escort listings directory for Cameroon (Laravel 13 / PHP 8.4, Blade, Tailwind v4, DaisyUI).
 
-This skill updates an existing `README.md`; it never creates one. If `README.md` does not exist, stop and tell the user to run `le-nkang-create-readme` instead. The goal is a surgical, additive edit: surface only what this branch adds, without disturbing accurate content, so the diff stays small and reviewable.
+This skill updates an existing `README.md`; it never creates one. If `README.md` does not exist, stop and tell the user to run `le-nkang-create-readme` instead. The goal is a surgical, additive edit: surface only what changed since the README was last synced, without disturbing accurate content, so the diff stays small and reviewable.
 
-## 1. Identify what's new on this branch
+## 1. Find the baseline: the last synced commit
 
-- `git status` and `git branch --show-current` to confirm the branch.
-- Find the base branch (`git symbolic-ref refs/remotes/origin/HEAD`, fallback `main`). Run `git log --oneline <base>..HEAD` and `git diff <base>...HEAD --stat`.
-- Review only changed/added files: routes, controllers, requests, models, policies, middleware, migrations, seeders, factories, views/components, config, `.env.example`, `composer.json`/`package.json`, `.ai/` files, plus enough context to describe each change accurately (real class/method names, middleware aliases, columns).
-- Do not re-audit functionality already on the base branch and already documented.
+- Read the end of `README.md` and extract the hash from the `_Last synced with commit <hash> (<date>)_` line. This is the **baseline commit**.
+- Validate it:
+  - `git cat-file -e <hash>^{commit}` (the commit exists).
+  - `git merge-base --is-ancestor <hash> HEAD` (it is part of the current history).
+- If the footer is missing, or the hash is unknown or not an ancestor of `HEAD` (squashed, rebased, wrong branch), fall back to the base branch: `git symbolic-ref refs/remotes/origin/HEAD` (fallback `main`), then `git merge-base <base> HEAD` as the baseline. Say clearly in the summary that the fallback was used and why.
+- Run `git branch --show-current` to confirm the branch.
 
-## 2. Preserve exactly
+## 2. Identify what changed since the baseline
 
-Keep character for character: the `# Le Nkang` heading and tagline, and every section not named in steps 3 to 7 (e.g. Usage, AI tooling, notes). Do not reword preserved text.
+Everything is compared against the baseline commit, so the result covers earlier commits, staged changes, unstaged changes and untracked files in one pass.
 
-## 3. "What the app does"
+- `git log --oneline <baseline>..HEAD` for the commits made since the last sync.
+- `git diff <baseline> --name-status -M` for every file that differs between the baseline and the working tree, classified as:
+  - `A` added, `M` modified, `D` deleted, `R<score>` renamed (old path to new path), `C` copied.
+- `git status --porcelain=v1 -uall` and `git ls-files --others --exclude-standard` for untracked files (new files not yet added), including those inside new folders.
+- Read every one of these files, in full, not just the diff hunks:
+  - Added, modified and untracked files: open the current content, plus `git diff <baseline> -- <path>` for modified ones to see exactly what changed.
+  - Renamed files: note both paths and read the new file; check whether its content also changed.
+  - Deleted files: read the removed content with `git show <baseline>:<path>` so you know what functionality, route, class, column or component disappeared.
+- Pay particular attention to routes, controllers, requests, models, policies, middleware, migrations, seeders, factories, views/components, config, `.env.example`, `composer.json`/`package.json`, `.ai/` files, tests and anything else that affects the README sections below.
+- Record, for each file, its status (added, modified, deleted, renamed) and the real class/method names, middleware aliases and columns it introduces, changes or removes.
+- If the baseline equals `HEAD` and the working tree is clean, nothing changed: update only the status footer (step 8) and say so.
+- Do not re-audit functionality that existed at the baseline and is already documented. Do not read changes older than the baseline.
+
+Every README edit in steps 4 to 8 must be traceable to a file in this list.
+
+## 3. Preserve exactly
+
+Keep character for character: the `# Le Nkang` heading and tagline, and every section not named in steps 4 to 8 (e.g. Usage, AI tooling, notes). Do not reword preserved text.
+
+## 4. "What the app does"
 
 Read the current paragraph.
 
-- If it describes the project accurately, leave it unchanged and append one brief sentence in plain, non-technical terms about what users can now also do because of this branch (skip if nothing user-facing; say so in the summary).
-- If it still describes a starter-project domain (e.g. publishing short messages, microblogging, chirps) rather than an escort listings directory, replace that paragraph once with an accurate 2 to 3 sentence description verified against routes/controllers, and flag the correction in the summary.
+- If it describes the project accurately, leave it unchanged and append one brief sentence in plain, non-technical terms about what users can now also do because of these changes (skip if nothing user-facing; say so in the summary).
+- If it still describes a starter-project domain (e.g. publishing short messages, microblogging, chirps) or says something the changes made false (e.g. "only serves an empty view"), replace that paragraph once with an accurate 2 to 3 sentence description verified against routes/controllers, and flag the correction in the summary.
 
-## 4. Features: add, don't rewrite
+## 5. Features: add, don't rewrite
 
-Append bullets for the branch's functionality, matching existing bullet style and specificity (real table/column names, controller/method names, middleware/authorization mechanics). Edit an existing bullet only if this branch made it factually wrong, and then minimally.
+Append bullets for the new functionality, matching existing bullet style and specificity (real table/column names, controller/method names, middleware/authorization mechanics). Edit an existing bullet only if these changes made it factually wrong, and then minimally. If a deleted or renamed file made an existing bullet obsolete (e.g. a removed route, controller or table), correct or remove just that bullet.
 
-## 5. Project structure: sync, don't rebuild
+## 6. Project structure: sync, don't rebuild
 
-In the fenced tree, add entries for new files/folders (comment names the real class/file, e.g. `# Escort model`, not `# new model`), remove entries for deleted/renamed ones, leave every other line untouched.
+In the fenced tree:
 
-## 6. Quick start: clone step check
+- Add entries for added and untracked files/folders (the comment names the real class/file, e.g. `# Escort model`, not `# new model`).
+- Remove entries for deleted files.
+- For renamed files, replace the old path with the new one and update the comment if the role changed.
+- Leave every other line untouched.
 
-If the first Quick start instruction is not a `git clone`, insert one as the new first step (use the real remote URL from `git remote get-url origin`, else a placeholder). Otherwise change nothing. Never remove, reorder or reword other commands in Quick start or Manual steps.
+## 7. Quick start: clone step check
 
-## 7. Status footer
+If the first Quick start instruction is not a `git clone`, insert one as the new first step (use the real remote URL from `git remote get-url origin`, else a placeholder). Otherwise change nothing. Never remove, reorder or reword other commands in Quick start or Manual steps, unless a changed file (e.g. `composer.json` scripts, `.env.example`) makes a documented command or variable factually wrong.
 
-Replace only the hash and date in the existing `_Last synced with commit ... (...)_` line with the current `HEAD` hash (`git rev-parse HEAD`, short or full to match the existing style) and its commit date. Nothing else in that section changes.
+## 8. Status footer
+
+Replace only the hash and date in the existing `_Last synced with commit ... (...)_` line with the current `HEAD` hash (`git rev-parse HEAD`, short or full to match the existing style) and its commit date. Nothing else in that section changes. If the working tree had uncommitted or untracked changes in step 2, mention in the summary that the footer points to `HEAD` and does not include them, so the next run will start from `HEAD` and those changes will still need to be re-read once committed.
 
 ## Guidelines
 
 - Terse. No filler, no marketing language. GitHub Flavored Markdown, relative links only.
-- Never fabricate command names, class names, paths, columns or validation rules; verify each against the branch diff.
-- If the branch adds nothing README-worthy beyond what's documented, say so and update only the Status footer.
+- Never fabricate command names, class names, paths, columns or validation rules; verify each against the files you read in step 2.
+- Never document a file you did not read.
+- If there is nothing README-worthy beyond what's documented, say so and update only the status footer.
 - Every edit is additive, or corrective and minimal.
+- In the final summary, state the baseline commit used (and whether the fallback applied), list the commits since it, list the changed files with their status (added, modified, deleted, renamed, untracked), then say which README sections were edited because of them.
 - Do not commit; leave the change in the working tree for review.
