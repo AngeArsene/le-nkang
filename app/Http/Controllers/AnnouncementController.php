@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Announcements\Show;
 use App\Concerns\ResolvesViewFromRoute;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
@@ -41,8 +42,10 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Announcement $announcement): View
+    public function show(Announcement $announcement, Show $action): View
     {
+        $action->handle($announcement);
+
         return $this->resolveView(compact('announcement'));
     }
 

@@ -162,4 +162,26 @@ class AnnouncementTest extends TestCase
             ->assertOk()
             ->assertSee("Publiée $expected");
     }
+
+    /**
+     * Confirms the displayed view count matches the number of times the announcement was viewed.
+     */
+    public function testDisplayedViewCountMatchesNumberOfTimesAnnouncementWasViewed(): void
+    {
+        $announcement = Announcement::factory()->create();
+        $route = route('announcements.show', $announcement);
+        $numberOfViews = random_int(1, 10);
+
+        // Simulate viewing the announcement $numberOfViews times
+        for ($i = 1; $i < $numberOfViews; $i++) {
+            $this->get($route)->assertOk();
+        }
+
+        // Refresh the model to get the updated view count
+        $announcement->refresh();
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee("$numberOfViews vues");
+    }
 }

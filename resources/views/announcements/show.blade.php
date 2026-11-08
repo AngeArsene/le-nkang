@@ -210,7 +210,7 @@
                             <svg class="ic">
                                 <use href="#i-eye" />
                             </svg>
-                            1 284 vues
+                            {{ $announcement->views_count }} vues
                         </li>
                         <li>
                             <svg class="ic">
