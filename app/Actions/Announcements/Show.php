@@ -5,13 +5,14 @@ namespace App\Actions\Announcements;
 use App\Actions\Action;
 use App\Events\AnnouncementViewedEvent;
 use App\Models\Announcement;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class Show extends Action
 {
     /**
      * Create a new action instance.
      */
-    public function __construct()
+    public function __construct(private readonly Dispatcher $event)
     {
         //
     }
@@ -21,6 +22,6 @@ class Show extends Action
      */
     public function handle(Announcement $announcement): void
     {
-        event(new AnnouncementViewedEvent($announcement));
+        $this->event->dispatch(new AnnouncementViewedEvent($announcement));
     }
 }
