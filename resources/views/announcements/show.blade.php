@@ -216,7 +216,7 @@
                             <svg class="ic">
                                 <use href="#i-heart" />
                             </svg>
-                            <span data-likes>128</span>
+                            <span data-likes>{{ $announcement->favorites_count }}</span>
                             favoris
                         </li>
                         <li>Publiée {{ $announcement->created_at->diffForHumans() }}</li>
@@ -533,7 +533,7 @@
                                 <use href="#i-heart" />
                             </svg>
                         </span>
-                        <em>Favori · <b data-likes>128</b></em>
+                        <em>Favori · <b data-likes>{{ $announcement->favorites_count }}</b></em>
                     </button>
                     <button id="report">
                         <span>

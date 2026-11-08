@@ -20,6 +20,18 @@ class Announcement extends Model
         return 'slug';
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites')
+            ->using(Favorite::class)
+            ->withTimestamps();
+    }
+
+    public function addToFavorites(User $user): void
+    {
+        $this->favorites()->syncWithoutDetaching($user);
+    }
+
     #[Scope]
     protected function otherThan(Builder $query, self $announcement): Builder
     {

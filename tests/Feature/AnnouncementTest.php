@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Announcement;
+use App\Models\User;
 use Carbon\CarbonInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -183,5 +184,27 @@ class AnnouncementTest extends TestCase
         $this->get($route)
             ->assertOk()
             ->assertSee("$numberOfViews vues");
+    }
+
+    /**
+     * Confirms the displayed favorite count matches the number of times the announcement was added to favorites.
+     */
+    public function testAnnouncementDisplaysNumberOfTimesItWasAddedToFavorites(): void
+    {
+        $numberOfFavorites = random_int(1, 10);
+
+        $users = User::factory()->count($numberOfFavorites)->create();
+        $announcement = Announcement::factory()->create();
+
+        $users->each(function (User $user) use ($announcement) {
+            $announcement->addToFavorites($user);
+        });
+
+        $route = route('announcements.show', $announcement);
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee("<span data-likes>$numberOfFavorites</span>", false)
+            ->assertSee("<em>Favori · <b data-likes>$numberOfFavorites</b></em>", false);
     }
 }

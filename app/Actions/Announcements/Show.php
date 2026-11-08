@@ -22,6 +22,8 @@ class Show extends Action
      */
     public function handle(Announcement $announcement): void
     {
+        $announcement->loadCount('favorites');
+
         $this->event->dispatch(new AnnouncementViewedEvent($announcement));
     }
 }
