@@ -302,7 +302,7 @@ $("#revForm").addEventListener("submit", (e) => {
 });
 
 /* Favorite, share, report */
-let likes = 128,
+let likes = document.querySelectorAll("[data-likes]")[0].textContent | 0,
     faved = false;
 function toggleFav() {
     faved = !faved;
