@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
+/**
+ * Represents a public listing in the Le Nkang directory.
+ */
 class Announcement extends Model
 {
     /** @use HasFactory<AnnouncementFactory> */
@@ -20,6 +23,9 @@ class Announcement extends Model
         return 'slug';
     }
 
+    /**
+     * Retrieve the users who have saved this announcement as a favorite.
+     */
     public function favorites()
     {
         return $this->belongsToMany(User::class, 'favorites')
@@ -27,17 +33,26 @@ class Announcement extends Model
             ->withTimestamps();
     }
 
+    /**
+     * Save the announcement to the given user's favorites without duplicating it.
+     */
     public function addToFavorites(User $user): void
     {
         $this->favorites()->syncWithoutDetaching($user);
     }
 
+    /**
+     * Exclude the matching announcement from a related-listing query.
+     */
     #[Scope]
     protected function otherThan(Builder $query, self $announcement): Builder
     {
         return $query->whereKeyNot($announcement->getKey());
     }
 
+    /**
+     * Filter listings that match the provided title or description search term.
+     */
     #[Scope]
     protected function matching(Builder $query, string $search): Builder
     {

@@ -4,25 +4,27 @@
 
 ## What the app does
 
-Le Nkang is an adults-only listings directory for Cameroon. The current Laravel app exposes public announcement detail pages at `/announcements/{slug}`, renders a polished gallery-style layout for each listing, and tracks the number of times each listing is viewed; the root `/` route still resolves to an empty index view.
+Le Nkang is an adults-only listings directory for Cameroon. The app serves public announcement pages at `/announcements/{slug}`, renders a polished listing layout with gallery, review, and contact details, and tracks both views and saves to a favorites list; the root `/` route still resolves to the landing index view.
 
 ## Features
 
 - [`routes/web.php`](routes/web.php) keeps the empty `home` view at `/` while exposing `AnnouncementController::show()` through `Route::resource('announcements', AnnouncementController::class)->only(['show'])`, so public announcement pages live under `/announcements/{slug}`.
 - [`App\Models\Announcement`](app/Models/Announcement.php) uses the `slug` as the route key and includes scoped queries for `matching` and `otherThan`, while [`AnnouncementController`](app/Http/Controllers/AnnouncementController.php) resolves the correct Blade view and dispatches a `AnnouncementViewedEvent` before rendering the page.
 - [`database/migrations/2026_10_25_154303_create_announcements_table.php`](database/migrations/2026_10_25_154303_create_announcements_table.php) creates the `announcements` table with `slug`, `title`, `description`, and timestamps; [`database/migrations/2026_11_06_091605_add_views_count_to_announcements_table.php`](database/migrations/2026_11_06_091605_add_views_count_to_announcements_table.php) adds the `views_count` column with a default of `0`.
-- [`App\Actions\Announcements\Show`](app/Actions/Announcements/Show.php) dispatches `AnnouncementViewedEvent`, and [`App\Listeners\IncrementViewsCount`](app/Listeners/IncrementViewsCount.php) increments the announcement's `views_count` on each view.
+- [`App\Actions\Announcements\Show`](app/Actions/Announcements/Show.php) dispatches `AnnouncementViewedEvent`, loads the current `favorites_count`, and [`App\Listeners\IncrementViewsCount`](app/Listeners/IncrementViewsCount.php) increments the announcement's `views_count` on each view.
+- [`App\Models\Announcement`](app/Models/Announcement.php) exposes a `favorites()` relation through [`app/Models/Favorite.php`](app/Models/Favorite.php), and [`addToFavorites(User $user)`](app/Models/Announcement.php) stores a unique `user_id` / `announcement_id` row via [`database/migrations/2026_11_08_162439_create_favorites_table.php`](database/migrations/2026_11_08_162439_create_favorites_table.php).
 - [`database/seeders/DatabaseSeeder.php`](database/seeders/DatabaseSeeder.php) calls [`AnnouncementSeeder`](database/seeders/AnnouncementSeeder.php), which seeds ten sample announcements via [`AnnouncementFactory`](database/factories/AnnouncementFactory.php); the factory generates a unique slug, title, and paragraph-length description.
-- [`resources/views/announcements/show.blade.php`](resources/views/announcements/show.blade.php) and the Blade components in [`resources/views/components/announcements/`](resources/views/components/announcements) render a dark luxury listing detail page with the hero, gallery, meta information, safety notes, and related-listing cards.
+- [`resources/views/announcements/show.blade.php`](resources/views/announcements/show.blade.php), the Blade components in [`resources/views/components/announcements/`](resources/views/components/announcements), and [`resources/js/app.js`](resources/js/app.js) render the favorites count and allow a guest to toggle a listing in favorites from the public detail page.
 - [`App\Policies\AnnouncementPolicy`](app/Policies/AnnouncementPolicy.php) allows guests to view a listing while leaving create/update/delete actions blocked, so the public read flow is intentionally open without a login system.
 - `DB_CONNECTION` is still `sqlite` in [`.env.example`](.env.example); Laravel's default database configuration remains available for MySQL, MariaDB, PostgreSQL, and SQL Server.
+- [`tests/Feature/AnnouncementTest.php`](tests/Feature/AnnouncementTest.php) verifies favorite counts in the HTTP flow, and [`tests/Browser/AnnouncementBrowserTest.php`](tests/Browser/AnnouncementBrowserTest.php) validates the same behavior in a Dusk browser session.
 
 ## Project structure
 
 ```text
 app/
   Actions/Action.php                              # Base action class
-  Actions/Announcements/Show.php                  # Dispatches the announcement view event
+  Actions/Announcements/Show.php                  # Loads favorites and dispatches the view event
   Concerns/ResolvesViewFromRoute.php             # Resolves route-specific Blade views
   Events/AnnouncementViewedEvent.php             # Announcement view event
   Http/Controllers/AnnouncementController.php    # Public detail controller for listings
@@ -30,7 +32,8 @@ app/
   Http/Requests/StoreAnnouncementRequest.php     # Placeholder announcement create request
   Http/Requests/UpdateAnnouncementRequest.php    # Placeholder announcement update request
   Listeners/IncrementViewsCount.php               # Increments announcement views
-  Models/Announcement.php                         # Slug-based announcement model
+  Models/Announcement.php                        # Slug-based announcement model with favorites
+  Models/Favorite.php                             # Favorite pivot between users and listings
   Policies/AnnouncementPolicy.php                 # Public read policy
   Providers/AppServiceProvider.php                # Application service provider
 bootstrap/
@@ -42,12 +45,13 @@ database/
   migrations/
     2026_10_25_154303_create_announcements_table.php # Creates the announcements table
     2026_11_06_091605_add_views_count_to_announcements_table.php # Adds views_count
+    2026_11_08_162439_create_favorites_table.php  # Adds the favorites pivot table
   seeders/
     AnnouncementSeeder.php                        # Seeds ten sample listings
     DatabaseSeeder.php                            # Runs announcement seeding
 resources/
   css/app.css                                     # Tailwind CSS entry point
-  js/app.js                                       # Vite frontend entry point
+  js/app.js                                       # Client-side listing interactions and favorites toggle
   views/
     announcements/show.blade.php                  # Public listing detail page
     components/announcements/about.blade.php      # About section card
@@ -62,7 +66,12 @@ routes/
   console.php                                     # Inspire console command
   web.php                                         # Home route and announcement detail routes
 tests/
-  Feature/AnnouncementTest.php                    # Covers slug URLs, access, escaping, and view counts
+  Browser/
+    AnnouncementBrowserTest.php                   # Verifies the favorites toggle in the browser
+    Pages/HomePage.php                            # Browser page object for the home route
+    Pages/Page.php                                # Base Dusk page object
+  DuskTestCase.php                                # Shared Dusk browser setup
+  Feature/AnnouncementTest.php                    # Covers slug URLs, access, escaping, and favorite counts
   Feature/ExampleTest.php                         # Checks that / returns HTTP 200
   Feature/SanityTest.php                          # Sanity checks for the app
   TestCase.php                                    # Laravel feature-test base
@@ -103,7 +112,7 @@ Laravel Herd is an alternative local PHP environment on Windows and macOS.
 
 ## AI tooling
 
-Laravel Boost is installed. [`boost.json`](boost.json) enables guidelines, although `.ai/guidelines/` is not present in this checkout; project skills are in [`.ai/skills/`](.ai/skills/). The configured agents are `claude_code`, `opencode`, and `copilot`; generated agent files include [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md), while `.github/copilot-instructions.md` is absent. Run `php artisan boost:update --discover` to sync generated Boost files. MCP configuration is in [`.mcp.json`](.mcp.json) and [`opencode.json`](opencode.json).
+Laravel Boost is installed. [`boost.json`](boost.json) enables guidelines, although `.ai/guidelines/` is not present in this checkout; project skills are in [`.ai/skills/`](.ai/skills/). The configured agents are `claude_code`, `opencode`, and `copilot`; generated agent files include [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md), and [`.github/copilot-instructions.md`](.github/copilot-instructions.md). Run `php artisan boost:update --discover` to sync generated Boost files. MCP configuration is in [`.mcp.json`](.mcp.json) and [`opencode.json`](opencode.json).
 
 ## Usage
 
@@ -113,4 +122,4 @@ Laravel Boost is installed. [`boost.json`](boost.json) enables guidelines, altho
 
 Pest is not installed.
 
-_Last synced with commit 5835440 (2026-11-08)_
+_Last synced with commit dc107b8 (2026-11-09)_

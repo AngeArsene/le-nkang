@@ -10,8 +10,28 @@ const IMG = {
     8: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMTAwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InRpdGxlIj4NCiAgPHRpdGxlIGlkPSJ0aXRsZSI+UG9ydHJhaXQgZ3JhcGhpcXVlIGF1eCByZWZsZXRzIGJsZXUgYXJkb2lzZSBldCB0dXJxdW9pc2U8L3RpdGxlPg0KICA8ZGVmcz4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJhY2siIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMTYyNDJlIi8+PHN0b3Agb2Zmc2V0PSIuNTUiIHN0b3AtY29sb3I9IiMxNTE5MjMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxZDJlMzUiLz48L2xpbmVhckdyYWRpZW50Pg0KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iaGFsbyI+PHN0b3Agc3RvcC1jb2xvcj0iIzY3YjhiNCIgc3RvcC1vcGFjaXR5PSIuNSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzY3YjhiNCIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InNraW4iIHgyPSIuOCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiNkN2FhODYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4YjYyNWQiLz48L2xpbmVhckdyYWRpZW50Pg0KICA8L2RlZnM+DQogIDxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwMCIgZmlsbD0idXJsKCNiYWNrKSIvPg0KICA8ZWxsaXBzZSBjeD0iMjgwIiBjeT0iMzE1IiByeD0iMzIwIiByeT0iMzU4IiBmaWxsPSJ1cmwoI2hhbG8pIi8+DQogIDxwYXRoIGQ9Ik0wIDc5NnExOTgtODggNDA1LTh0Mzk1LTQxdjI1M0gwWiIgZmlsbD0iIzEwMTUxYiIvPg0KICA8cGF0aCBkPSJNMTcxIDEwMDBxNDktMTg5IDE2NC0yNjNsOTktNDAgMTEwIDU0cTEzMCA3OCAxNTMgMjQ5WiIgZmlsbD0iIzI2MzY0MCIvPg0KICA8cGF0aCBkPSJNMzA3IDQyMXEtMTMtMTYzIDc4LTIxOCAxMDgtNjggMTk4IDEzIDczIDY2IDQ2IDIyMC0yNSAxNDUtMTQ1IDE1Ny0xMDEtOS0xMzgtMTcyWiIgZmlsbD0idXJsKCNza2luKSIvPg0KICA8cGF0aCBkPSJNMjgyIDQ0MnEtMjgtMTc0IDY2LTI0NiAxMDgtODEgMjEyLTUgNzMgNTMgNjUgMjM0bC00OC05N3EtODIgMTQtMTM3LTYxLTM5IDgwLTEzOSA5MVoiIGZpbGw9IiMxMjE3MWQiLz4NCiAgPHBhdGggZD0iTTMzOSA0NjRxMjggOCA1MSAwbTc2IDBxMjYgOCA1MCAwIiBmaWxsPSJub25lIiBzdHJva2U9IiMzNTI2MmEiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPg0KICA8cGF0aCBkPSJNNDI3IDUyMHExNyAxMSAzNSAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM2NDQ3NDQiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+DQogIDxwYXRoIGQ9Ik0zNjAgNTkzcTYzIDM3IDEyNCAwIiBmaWxsPSJub25lIiBzdHJva2U9IiM3NzQ3NGMiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPg0KICA8cGF0aCBkPSJNMjE1IDEwMDBxNjUtMTc4IDE2MS0yMDlsLTM4IDIwOVptNDA5IDBxLTU2LTE3OC0xNjUtMjA4bDQxIDIwOFoiIGZpbGw9IiMzNzQ3NTIiLz4NCiAgPGNpcmNsZSBjeD0iMzY2IiBjeT0iNDc4IiByPSI2IiBmaWxsPSIjZGVjNGE0Ii8+PGNpcmNsZSBjeD0iNTE2IiBjeT0iNDc4IiByPSI2IiBmaWxsPSIjZGVjNGE0Ii8+DQogIDxwYXRoIGQ9Ik0xMDQgMTM4aDN2NzAwaC0zem02MDQgNDRoM3Y1ODBoLTN6IiBmaWxsPSIjN2RjOGJkIiBvcGFjaXR5PSIuMzMiLz4NCjwvc3ZnPg0K",
 };
 
+/**
+ * Retrieve the first matching element in the document.
+ *
+ * @param {string} selector
+ * @return {Element | null}
+ */
 const $ = (s) => document.querySelector(s);
+
+/**
+ * Format a number using the French locale.
+ *
+ * @param {number} value
+ * @return {string}
+ */
 const fmt = (n) => n.toLocaleString("fr-FR");
+
+/**
+ * Display a toast message for a short duration.
+ *
+ * @param {string} msg
+ * @return {void}
+ */
 const toast = (msg) => {
     const t = $("#toast");
     t.textContent = msg;
@@ -23,6 +43,12 @@ const toast = (msg) => {
 /* Gallery */
 const imgs = [1, 2, 3, 4, 5].map((n) => IMG[n]);
 let cur = 0;
+
+/**
+ * Refresh the gallery image and thumbnail state.
+ *
+ * @return {void}
+ */
 function gallery() {
     $("#gMain").src = imgs[cur];
     $("#gCount").textContent = `${cur + 1} / ${imgs.length}`;
@@ -225,6 +251,11 @@ const reviews = [
 const tints = ["var(--blue)", "var(--pink)", "var(--yellow)"];
 const PER = 2;
 let revPage = 0;
+/**
+ * Render the aggregated review summary and the current review page.
+ *
+ * @return {void}
+ */
 function renderReviews() {
     const total = Object.values(dist).reduce((a, b) => a + b, 0);
     const avg =
@@ -268,6 +299,11 @@ $("#revNext").onclick = () => {
     revPage++;
     renderReviews();
 };
+/**
+ * Close the review form and restore focus to the trigger button.
+ *
+ * @return {void}
+ */
 const closeForm = () => {
     $("#revForm").hidden = true;
     $("#revBtn").setAttribute("aria-expanded", false);
@@ -308,6 +344,12 @@ $("#revForm").addEventListener("submit", (e) => {
 /* Favorite, share, report */
 let likes = document.querySelectorAll("[data-likes]")[0].textContent | 0,
     faved = false;
+
+/**
+ * Toggle the current listing in the user favorites list.
+ *
+ * @return {void}
+ */
 function toggleFav() {
     faved = !faved;
     likes += faved ? 1 : -1;
@@ -359,6 +401,12 @@ document.querySelectorAll("[data-img]").forEach((i) => {
 /* Discussion rapide */
 const chat = $("#chat"),
     launch = $("#chatOpen");
+/**
+ * Open or close the quick-chat panel.
+ *
+ * @param {boolean} open
+ * @return {void}
+ */
 const setChat = (open) => {
     chat.hidden = !open;
     launch.setAttribute("aria-expanded", open);
