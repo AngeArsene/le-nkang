@@ -52,14 +52,18 @@ $("#gNext").onclick = () => {
 gallery();
 
 /* About: read more */
-$("#more").onclick = (e) => {
-    const open = $("#about").classList.toggle("open");
-    $('#lessText').style.display = !open ? 'none' : 'inline';
-    $('#dots').style.display = open ? 'none' : 'inline';
-    $('#about').style.textOverflow = !open ? 'none' : 'clip';
-    e.currentTarget.textContent = open ? "Réduire" : "Lire la suite";
-    e.currentTarget.setAttribute("aria-expanded", open);
-};
+const moreBtn = $("#more");
+
+if (moreBtn) {
+    moreBtn.onclick = (e) => {
+        const open = $("#about").classList.toggle("open");
+        $("#lessText").style.display = open ? "inline" : "none";
+        $("#dots").style.display = open ? "none" : "inline";
+        $("#about").style.textOverflow = open ? "clip" : "none";
+        e.currentTarget.textContent = open ? "Réduire" : "Lire la suite";
+        e.currentTarget.setAttribute("aria-expanded", open);
+    };
+}
 
 /* Autres annonces : grille simple + filtre par quartier */
 const L = [
