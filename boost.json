@@ -19,6 +19,7 @@
         "create-readme",
         "cruddy-controllers",
         "design-announcement-show",
+        "domain-organization",
         "error-views",
         "oop-affordances",
         "pagination-views",
