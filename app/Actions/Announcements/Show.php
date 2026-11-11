@@ -4,14 +4,13 @@ namespace App\Actions\Announcements;
 
 use App\Actions\Action;
 use App\Models\Announcement;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class Show extends Action
 {
     /**
      * Create a new action instance.
      */
-    public function __construct(private readonly Dispatcher $event)
+    public function __construct()
     {
         //
     }
