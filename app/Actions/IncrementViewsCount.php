@@ -30,6 +30,9 @@ class IncrementViewsCount extends Action
         session()->put('viewed_announcements.'.$announcement->getKey(), true);
     }
 
+    /**
+     * Determine if the announcement has already been viewed in this session.
+     */
     private function wasViewed(Announcement $announcement): bool
     {
         return session()->has('viewed_announcements.'.$announcement->getKey());

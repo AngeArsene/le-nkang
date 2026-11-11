@@ -176,6 +176,7 @@ class AnnouncementTest extends TestCase
         // Simulate viewing the announcement $numberOfViews times
         for ($i = 1; $i < $numberOfViews; $i++) {
             $this->get($route)->assertOk();
+            $this->flushSession();
         }
 
         // Refresh the model to get the updated view count
