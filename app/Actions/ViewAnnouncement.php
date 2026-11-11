@@ -4,10 +4,13 @@ namespace App\Actions;
 
 use App\Models\Announcement;
 
+/**
+ * Load favorite metadata and record when a listing is viewed.
+ */
 class ViewAnnouncement extends Action
 {
     /**
-     * Create a new action instance.
+     * Initialize the action without dependencies.
      */
     public function __construct()
     {
@@ -15,7 +18,7 @@ class ViewAnnouncement extends Action
     }
 
     /**
-     * Execute the action.
+     * Load the favorite count and increment the announcement's view count.
      */
     public function handle(Announcement $announcement): void
     {

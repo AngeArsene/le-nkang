@@ -9,9 +9,9 @@ Le Nkang is an adults-only listings directory for Cameroon. The app serves publi
 ## Features
 
 - [`routes/web.php`](routes/web.php) keeps the empty `home` view at `/` while exposing `AnnouncementController::show()` through `Route::resource('announcements', AnnouncementController::class)->only(['show'])`, so public announcement pages live under `/announcements/{slug}`.
-- [`App\Models\Announcement`](app/Models/Announcement.php) uses the `slug` as the route key and includes scoped queries for `matching` and `otherThan`, while [`AnnouncementController`](app/Http/Controllers/AnnouncementController.php) resolves the correct Blade view and dispatches a `AnnouncementViewedEvent` before rendering the page.
+- [`App\Models\Announcement`](app/Models/Announcement.php) uses the `slug` as the route key and includes scoped queries for `matching` and `otherThan`, while [`AnnouncementController`](app/Http/Controllers/AnnouncementController.php) resolves the correct Blade view before rendering the page.
 - [`database/migrations/2026_10_25_154303_create_announcements_table.php`](database/migrations/2026_10_25_154303_create_announcements_table.php) creates the `announcements` table with `slug`, `title`, `description`, and timestamps; [`database/migrations/2026_11_06_091605_add_views_count_to_announcements_table.php`](database/migrations/2026_11_06_091605_add_views_count_to_announcements_table.php) adds the `views_count` column with a default of `0`.
-- [`App\Actions\Announcements\Show`](app/Actions/Announcements/Show.php) dispatches `AnnouncementViewedEvent`, loads the current `favorites_count`, and [`App\Listeners\IncrementViewsCount`](app/Listeners/IncrementViewsCount.php) increments the announcement's `views_count` on each view.
+- [`App\Actions\ViewAnnouncement`](app/Actions/ViewAnnouncement.php) loads `favorites_count` and calls [`Announcement::incrementViewsCount()`](app/Models/Announcement.php) directly, replacing the former view-event/listener flow.
 - [`App\Models\Announcement`](app/Models/Announcement.php) exposes a `favorites()` relation through [`app/Models/Favorite.php`](app/Models/Favorite.php), and [`addToFavorites(User $user)`](app/Models/Announcement.php) stores a unique `user_id` / `announcement_id` row via [`database/migrations/2026_11_08_162439_create_favorites_table.php`](database/migrations/2026_11_08_162439_create_favorites_table.php).
 - [`database/seeders/DatabaseSeeder.php`](database/seeders/DatabaseSeeder.php) calls [`AnnouncementSeeder`](database/seeders/AnnouncementSeeder.php), which seeds ten sample announcements via [`AnnouncementFactory`](database/factories/AnnouncementFactory.php); the factory generates a unique slug, title, and paragraph-length description.
 - [`resources/views/announcements/show.blade.php`](resources/views/announcements/show.blade.php), the Blade components in [`resources/views/components/announcements/`](resources/views/components/announcements), and [`resources/js/app.js`](resources/js/app.js) render the favorites count and allow a guest to toggle a listing in favorites from the public detail page.
@@ -22,16 +22,27 @@ Le Nkang is an adults-only listings directory for Cameroon. The app serves publi
 ## Project structure
 
 ```text
+.agents/
+  skills/
+    domain-organization/SKILL.md                  Domain-based action and DTO guidance
+.ai/
+  skills/
+    domain-organization/SKILL.md                  Domain-based action and DTO guidance
+.claude/
+  skills/
+    domain-organization/SKILL.md                  Domain-based action and DTO guidance
+.github/
+  copilot-instructions.md                        Copilot repository instructions
+  skills/
+    domain-organization/SKILL.md                  Domain-based action and DTO guidance
 app/
   Actions/Action.php                              # Base action class
-  Actions/Announcements/Show.php                  # Loads favorites and dispatches the view event
+  Actions/ViewAnnouncement.php                    # Loads favorites and increments the view count
   Concerns/ResolvesViewFromRoute.php             # Resolves route-specific Blade views
-  Events/AnnouncementViewedEvent.php             # Announcement view event
   Http/Controllers/AnnouncementController.php    # Public detail controller for listings
   Http/Controllers/Controller.php                 # Base controller
   Http/Requests/StoreAnnouncementRequest.php     # Placeholder announcement create request
   Http/Requests/UpdateAnnouncementRequest.php    # Placeholder announcement update request
-  Listeners/IncrementViewsCount.php               # Increments announcement views
   Models/Announcement.php                        # Slug-based announcement model with favorites
   Models/Favorite.php                             # Favorite pivot between users and listings
   Policies/AnnouncementPolicy.php                 # Public read policy
@@ -122,4 +133,4 @@ Laravel Boost is installed. [`boost.json`](boost.json) enables guidelines, altho
 
 Pest is not installed.
 
-_Last synced with commit dc107b8 (2026-11-09)_
+_Last synced with commit aa16dde (2026-11-11)_

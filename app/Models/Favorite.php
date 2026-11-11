@@ -11,11 +11,15 @@ class Favorite extends Pivot
 {
     /**
      * Indicates that the favorite relationship should use an auto-incrementing primary key.
+     *
+     * @var bool
      */
     public $incrementing = true;
 
     /**
      * The associated table for favorite records.
+     *
+     * @var string
      */
     protected $table = 'favorites';
 }

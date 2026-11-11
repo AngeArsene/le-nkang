@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Override;
 
 /**
@@ -17,6 +18,9 @@ class Announcement extends Model
     /** @use HasFactory<AnnouncementFactory> */
     use HasFactory;
 
+    /**
+     * Use the announcement slug for route model binding.
+     */
     #[Override]
     public function getRouteKeyName(): string
     {
@@ -25,8 +29,10 @@ class Announcement extends Model
 
     /**
      * Retrieve the users who have saved this announcement as a favorite.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
-    public function favorites()
+    public function favorites(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorites')
             ->using(Favorite::class)
@@ -42,7 +48,9 @@ class Announcement extends Model
     }
 
     /**
-     * Increment the number of views for this announcement by one.
+     * Increment the persisted view count.
+     *
+     * @param  int|null  $amount  Number to add to the current count.
      */
     public function incrementViewsCount(?int $amount = 1): void
     {

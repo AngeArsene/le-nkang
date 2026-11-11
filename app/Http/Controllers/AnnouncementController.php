@@ -10,13 +10,16 @@ use App\Models\Announcement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\View\View;
 
+/**
+ * Handle public and placeholder resource endpoints for announcements.
+ */
 class AnnouncementController extends Controller
 {
     use AuthorizesRequests,
         ResolvesViewFromRoute;
 
     /**
-     * Display a listing of the resource.
+     * No public announcement index is implemented.
      */
     public function index()
     {
@@ -24,7 +27,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * No announcement creation form is implemented.
      */
     public function create()
     {
@@ -32,7 +35,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * No announcement creation handler is implemented.
      */
     public function store(StoreAnnouncementRequest $request)
     {
@@ -40,7 +43,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Record a view and render the requested announcement page.
      */
     public function show(Announcement $announcement, ViewAnnouncement $action): View
     {
@@ -50,7 +53,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * No announcement editing form is implemented.
      */
     public function edit(Announcement $announcement)
     {
@@ -58,7 +61,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * No announcement update handler is implemented.
      */
     public function update(UpdateAnnouncementRequest $request, Announcement $announcement)
     {
@@ -66,7 +69,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * No announcement deletion handler is implemented.
      */
     public function destroy(Announcement $announcement)
     {
