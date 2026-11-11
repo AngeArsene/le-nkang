@@ -12,7 +12,7 @@ class ViewAnnouncement extends Action
     /**
      * Initialize the action without dependencies.
      */
-    public function __construct()
+    public function __construct(private readonly IncrementViewsCount $incrementViewsCount)
     {
         //
     }
@@ -24,6 +24,6 @@ class ViewAnnouncement extends Action
     {
         $announcement->loadCount('favorites');
 
-        $announcement->incrementViewsCount();
+        $this->incrementViewsCount->handle($announcement);
     }
 }

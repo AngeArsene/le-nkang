@@ -207,4 +207,61 @@ class AnnouncementTest extends TestCase
             ->assertSee("<span data-likes>$numberOfFavorites</span>", false)
             ->assertSee("<em>Favori · <b data-likes>$numberOfFavorites</b></em>", false);
     }
+
+    /**
+     * Confirms a guest viewing the same announcement several times in one session counts as a single view.
+     */
+    public function testGuestViewsAreCountedOncePerSession(): void
+    {
+        $announcement = Announcement::factory()->create();
+        $route = route('announcements.show', $announcement);
+        $numberOfViews = random_int(2, 10);
+
+        for ($i = 1; $i < $numberOfViews; $i++) {
+            $this->get($route)->assertOk();
+        }
+
+        $announcement->refresh();
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee("1 vues");
+    }
+
+    /**
+     * Confirms a new guest session counts as a new view.
+     */
+    public function testGuestViewsAreCountedAgainInANewSession(): void
+    {
+        $announcement = Announcement::factory()->create();
+        $route = route('announcements.show', $announcement);
+        $numberOfViews = random_int(2, 10);
+
+        for ($i = 1; $i < $numberOfViews; $i++) {
+            $this->get($route)->assertOk();
+            $this->flushSession();
+        }
+
+        $announcement->refresh();
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee("$numberOfViews vues");
+    }
+
+    /**
+     * Confirms views are tracked per announcement within the same session.
+     */
+    public function testGuestViewsAreTrackedPerAnnouncement(): void
+    {
+        $first = Announcement::factory()->create();
+        $second = Announcement::factory()->create();
+
+        $this->get(route('announcements.show', $first))->assertOk();
+        $this->get(route('announcements.show', $second))->assertOk();
+        $this->get(route('announcements.show', $first))->assertOk();
+
+        $this->assertSame(1, $first->refresh()->views_count);
+        $this->assertSame(1, $second->refresh()->views_count);
+    }
 }
