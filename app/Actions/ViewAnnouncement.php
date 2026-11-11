@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Actions\Announcements;
+namespace App\Actions;
 
-use App\Actions\Action;
 use App\Models\Announcement;
 
-class Show extends Action
+class ViewAnnouncement extends Action
 {
     /**
      * Create a new action instance.

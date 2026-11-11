@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Announcements\Show;
+use App\Actions\ViewAnnouncement;
 use App\Concerns\ResolvesViewFromRoute;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
@@ -42,7 +42,7 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Announcement $announcement, Show $action): View
+    public function show(Announcement $announcement, ViewAnnouncement $action): View
     {
         $action->handle($announcement);
 
