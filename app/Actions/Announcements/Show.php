@@ -3,7 +3,6 @@
 namespace App\Actions\Announcements;
 
 use App\Actions\Action;
-use App\Events\AnnouncementViewedEvent;
 use App\Models\Announcement;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -24,6 +23,6 @@ class Show extends Action
     {
         $announcement->loadCount('favorites');
 
-        $this->event->dispatch(new AnnouncementViewedEvent($announcement));
+        $announcement->incrementViewsCount();
     }
 }

@@ -42,6 +42,14 @@ class Announcement extends Model
     }
 
     /**
+     * Increment the number of views for this announcement by one.
+     */
+    public function incrementViewsCount(?int $amount = 1): void
+    {
+        $this->increment('views_count', $amount);
+    }
+
+    /**
      * Exclude the matching announcement from a related-listing query.
      */
     #[Scope]
