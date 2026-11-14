@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'views' => ':count vue|:count vues',
     'page_title' => ':title — Le Nkang',
     'skip_to_content' => 'Aller au contenu principal',
     'primary_navigation' => 'Navigation principale',

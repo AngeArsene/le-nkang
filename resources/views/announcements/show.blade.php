@@ -210,7 +210,7 @@
                             <svg class="ic">
                                 <use href="#i-eye" />
                             </svg>
-                            {{ $announcement->views_count }} vues
+                            {{ trans_choice('announcements.views', $announcement->views_count, [], 'fr') }}
                         </li>
                         <li>
                             <svg class="ic">

@@ -60,9 +60,11 @@ class AnnouncementBrowserTest extends DuskTestCase
         $views_count = random_int(1, 10);
         $announcement = Announcement::factory()->create(compact('views_count'));
 
-        $this->browse(function (Browser $browser) use ($announcement, $views_count) {
+        $expected = trans_choice('announcements.views', $views_count + 1, [], 'fr');
+
+        $this->browse(function (Browser $browser) use ($announcement, $expected) {
             $browser->visit(route('announcements.show', $announcement))
-                ->assertSee(($views_count + 1) . ' vues');
+                ->assertSeeIn('.meta', $expected);
         });
     }
 
@@ -74,13 +76,14 @@ class AnnouncementBrowserTest extends DuskTestCase
         $views_count = random_int(1, 10);
         $announcement = Announcement::factory()->create(compact('views_count'));
 
-        $this->browse(function (Browser $browser) use ($announcement, $views_count) {
-            $expectedViewsCount = $views_count + 1;
+        $expected = trans_choice('announcements.views', $views_count + 1, [], 'fr');
 
+        $this->browse(function (Browser $browser) use ($announcement, $expected) {
             $browser->visit(route('announcements.show', $announcement))
-                ->assertSee("$expectedViewsCount vues")
-                ->refresh()
-                ->assertSee("$expectedViewsCount vues");
+                ->assertSeeIn('.meta', $expected);
+
+            $browser->refresh()
+                ->assertSeeIn('.meta', $expected);
         });
     }
 
@@ -93,14 +96,14 @@ class AnnouncementBrowserTest extends DuskTestCase
         $announcement = Announcement::factory()->create(compact('views_count'));
 
         $this->browse(function (Browser $firstBrowser, Browser $secondBrowser) use ($announcement, $views_count) {
-            $expectedFirstViewsCount = $views_count + 1;
-            $expectedSecondViewsCount = $views_count + 2;
+            $expectedFirstViewsCount = trans_choice('announcements.views', $views_count + 1, [], 'fr');
+            $expectedSecondViewsCount = trans_choice('announcements.views', $views_count + 2, [], 'fr');
 
             $firstBrowser->visit(route('announcements.show', $announcement))
-                ->assertSee("$expectedFirstViewsCount vues");
+                ->assertSeeIn('.meta', $expectedFirstViewsCount);
 
             $secondBrowser->visit(route('announcements.show', $announcement))
-                ->assertSee("$expectedSecondViewsCount vues");
+                ->assertSeeIn('.meta', $expectedSecondViewsCount);
         });
     }
 
@@ -109,33 +112,24 @@ class AnnouncementBrowserTest extends DuskTestCase
      */
     public function testGuestViewsAreTrackedPerAnnouncement(): void
     {
-        $first_announcement_views_count = random_int(1, 10);
-        $second_announcement_views_count = random_int(1, 10);
+        $views_count_1 = random_int(1, 10);
+        $views_count_2 = random_int(1, 10);
 
-        $firstAnnouncement = Announcement::factory()->create([
-            'views_count' => $first_announcement_views_count
-        ]);
-        $secondAnnouncement = Announcement::factory()->create([
-            'views_count' => $second_announcement_views_count
-        ]);
+        $firstAnnouncement = Announcement::factory()->create(['views_count' => $views_count_1]);
+        $secondAnnouncement = Announcement::factory()->create(['views_count' => $views_count_2]);
 
-        $this->browse(function (Browser $browser) use (
-            $firstAnnouncement,
-            $secondAnnouncement,
-            $first_announcement_views_count,
-            $second_announcement_views_count
-        ) {
-            $expectedFirstAnnouncementViewsCount = $first_announcement_views_count + 1;
-            $expectedSecondAnnouncementViewsCount = $second_announcement_views_count + 1;
+        $this->browse(function (Browser $browser) use ($firstAnnouncement, $secondAnnouncement, $views_count_1, $views_count_2) {
+            $expectedFirstViewsCount = trans_choice('announcements.views', $views_count_1 + 1, [], 'fr');
+            $expectedSecondViewsCount = trans_choice('announcements.views', $views_count_2 + 1, [], 'fr');
 
             $browser->visit(route('announcements.show', $firstAnnouncement))
-                ->assertSee("$expectedFirstAnnouncementViewsCount vues");
+                ->assertSeeIn('.meta', $expectedFirstViewsCount);
 
             $browser->visit(route('announcements.show', $secondAnnouncement))
-                ->assertSee("$expectedSecondAnnouncementViewsCount vues");
+                ->assertSeeIn('.meta', $expectedSecondViewsCount);
 
             $browser->visit(route('announcements.show', $firstAnnouncement))
-                ->assertSee("$expectedFirstAnnouncementViewsCount vues");
+                ->assertSeeIn('.meta', $expectedFirstViewsCount);
         });
     }
 }
