@@ -21,6 +21,7 @@ class AnnouncementFactory extends Factory
             'slug' => $this->faker->unique()->slug(4),
             'title' => $this->faker->sentence(4),
             'description' => $this->faker->paragraph(5, true),
+            'views_count' => $this->faker->numberBetween(0, 1000),
         ];
     }
 }
