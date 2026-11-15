@@ -111,10 +111,9 @@ class AnnouncementBrowserTest extends DuskTestCase
     public function testClickingAddToFavoritesChangesLabelToPluralFromOneToTwo(): void
     {
         $announcement = Announcement::factory()->create();
-        $users = User::factory()->count(2)->create();
+        $user = User::factory()->create();
 
-        $announcement->addToFavorites($users->first());
-        $announcement->addToFavorites($users->last());
+        $announcement->addToFavorites($user);
 
         $this->browse(function (Browser $browser) use ($announcement) {
             $browser->visit(new AnnouncementPage($announcement))
