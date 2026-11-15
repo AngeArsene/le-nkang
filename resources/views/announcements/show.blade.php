@@ -217,7 +217,12 @@
                                 <use href="#i-heart" />
                             </svg>
                             <span data-likes>{{ $announcement->favorites_count }}</span>
-                            favoris
+                            <span
+                                data-favorites-label
+                                data-singular="{{ trans_choice('announcements.favorites_label', 1, [], 'fr') }}"
+                                data-plural="{{ trans_choice('announcements.favorites_label', 2, [], 'fr') }}">
+                                {{ trans_choice('announcements.favorites_label', $announcement->favorites_count, [], 'fr') }}
+                            </span>
                         </li>
                         <li>Publiée {{ $announcement->created_at->diffForHumans() }}</li>
                         <li><a href="#avis">★ <span data-avg>4,7</span> · <span data-total>36</span> avis</a></li>

@@ -346,9 +346,17 @@ let likes = document.querySelectorAll("[data-likes]")[0].textContent | 0,
     faved = false;
 
 /**
+ * Show the singular or plural favorites word that matches the current count.
+ * French treats 0 and 1 as singular, and 2 or more as plural.
+ */
+function updateFavoritesLabel() {
+    document.querySelectorAll("[data-favorites-label]").forEach((el) => {
+        el.textContent = likes > 1 ? el.dataset.plural : el.dataset.singular;
+    });
+}
+
+/**
  * Toggle the current listing in the user favorites list.
- *
- * @return {void}
  */
 function toggleFav() {
     faved = !faved;
@@ -359,6 +367,7 @@ function toggleFav() {
     document
         .querySelectorAll("[data-likes]")
         .forEach((n) => (n.textContent = likes));
+    updateFavoritesLabel();
     toast(faved ? "Ajoutée à vos favoris" : "Retirée de vos favoris");
 }
 $("#fav").onclick = toggleFav;

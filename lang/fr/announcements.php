@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'favorites_label' => 'favori|favoris',
     'views' => ':count vue|:count vues',
     'page_title' => ':title — Le Nkang',
     'skip_to_content' => 'Aller au contenu principal',
