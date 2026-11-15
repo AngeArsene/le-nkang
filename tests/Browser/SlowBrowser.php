@@ -22,7 +22,7 @@ class SlowBrowser extends Browser
     /**
      * Visit the given URL and pause briefly so the page settles.
      *
-     * @param mixed ...$args
+     * @param  mixed  ...$args
      */
     public function visit(...$args)
     {
@@ -34,7 +34,7 @@ class SlowBrowser extends Browser
     /**
      * Click an element and pause briefly after the interaction.
      *
-     * @param mixed ...$args
+     * @param  mixed  ...$args
      */
     public function click(...$args)
     {

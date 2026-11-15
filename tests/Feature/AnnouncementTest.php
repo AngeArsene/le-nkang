@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Announcement;
+use App\Models\Review;
 use App\Models\User;
 use Carbon\CarbonInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -184,5 +185,58 @@ class AnnouncementTest extends TestCase
             ->assertOk()
             ->assertSee("<span data-likes>$numberOfFavorites</span>", false)
             ->assertSee("<em>Favori · <b data-likes>$numberOfFavorites</b></em>", false);
+    }
+
+    /**
+     * Provides star distributions with the expected average and total.
+     *
+     * @return array<string, array{array<int, int>, string, int}>
+     */
+    public static function reviewSummaryProvider(): array
+    {
+        return [
+            'mixed ratings' => [[5 => 27, 4 => 7, 3 => 1, 2 => 1], '4,7', 36],
+            'only excellent' => [[5 => 2], '5,0', 2],
+            'low ratings' => [[1 => 1, 2 => 1], '1,5', 2],
+            'single review' => [[3 => 1], '3,0', 1],
+        ];
+    }
+
+    /**
+     * Confirms announcements display the correct average rating and total number of reviews.
+     *
+     * @param  array<int, int>  $distribution  Number of reviews per star (1-5).
+     */
+    #[DataProvider('reviewSummaryProvider')]
+    public function testAnnouncementDisplaysCorrectAverageRatingAndTotalReviews(
+        array $distribution,
+        string $expectedAverage,
+        int $expectedTotal,
+    ): void {
+        $announcement = Announcement::factory()->create();
+
+        foreach ($distribution as $note => $count) {
+            Review::factory()
+                ->count($count)
+                ->for($announcement)
+                ->create(['note' => $note]);
+        }
+
+        $route = route('announcements.show', $announcement);
+
+        $expectedTotal = sprintf(
+            '<span data-total>%s</span> avis',
+            $expectedTotal,
+        );
+
+        $expectedAverage = sprintf(
+            '★ <span data-avg>%s</span>',
+            $expectedAverage,
+        );
+
+        $this->get($route)
+            ->assertOk()
+            ->assertSee($expectedAverage, false)
+            ->assertSee($expectedTotal, false);
     }
 }

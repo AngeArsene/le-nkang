@@ -74,7 +74,7 @@ class IncrementViewsCount extends Action
     /**
      * Retrieve the announcement IDs remembered in the visitor cookie.
      *
-     * @return \Illuminate\Support\Collection<int, int|string>
+     * @return Collection<int, int|string>
      */
     private function viewedIds(): Collection
     {

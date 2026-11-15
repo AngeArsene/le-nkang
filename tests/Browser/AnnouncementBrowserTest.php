@@ -78,7 +78,7 @@ class AnnouncementBrowserTest extends DuskTestCase
         $announcement = Announcement::factory()->create();
 
         User::factory()->count($numberOfFavorites)->create()
-            ->each(fn(User $user) => $announcement->addToFavorites($user));
+            ->each(fn (User $user) => $announcement->addToFavorites($user));
 
         $this->browse(function (Browser $browser) use ($announcement, $expectedLabel) {
             $browser->visit(new AnnouncementPage($announcement))
