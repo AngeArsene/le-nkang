@@ -55,6 +55,7 @@ abstract class DuskTestCase extends BaseTestCase
      * Create the browser wrapper used for delayed interaction checks.
      *
      * @param  mixed  $driver
+     * @return SlowBrowser
      */
     protected function newBrowser($driver)
     {

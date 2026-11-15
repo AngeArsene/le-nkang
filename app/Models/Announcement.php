@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Override;
 
 /**
- * Represents a public listing in the Le Nkang directory.
+ * Represents a public listing with favorites and reviews in the Le Nkang directory.
  */
 class Announcement extends Model
 {
-    /** @use HasFactory<AnnouncementFactory> */
+    /** @use HasFactory<\Database\Factories\AnnouncementFactory> */
     use HasFactory;
 
     /**
@@ -27,11 +27,19 @@ class Announcement extends Model
         return 'slug';
     }
 
+    /**
+     * Retrieve the reviews associated with this announcement.
+     *
+     * @return HasMany<Review, $this>
+     */
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
     }
 
+    /**
+     * Calculate the average review score, returning zero when there are no reviews.
+     */
     public function averageRating(): float
     {
         return $this->reviews()->avg('note') ?? 0;

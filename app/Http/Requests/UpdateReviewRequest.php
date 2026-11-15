@@ -5,10 +5,13 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Placeholder request that currently denies review updates and defines no validation rules.
+ */
 class UpdateReviewRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Deny all review updates.
      */
     public function authorize(): bool
     {
@@ -16,7 +19,7 @@ class UpdateReviewRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Return the currently empty set of review validation rules.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */

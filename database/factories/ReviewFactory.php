@@ -6,6 +6,8 @@ use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * Generate sample review records.
+ *
  * @extends Factory<Review>
  */
 class ReviewFactory extends Factory

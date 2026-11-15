@@ -6,6 +6,9 @@ use App\Models\Announcement;
 use App\Models\Review;
 use Illuminate\Database\Seeder;
 
+/**
+ * Seed each announcement with a random number of sample reviews.
+ */
 class ReviewSeeder extends Seeder
 {
     /**

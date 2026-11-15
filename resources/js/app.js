@@ -13,7 +13,7 @@ const IMG = {
 /**
  * Retrieve the first matching element in the document.
  *
- * @param {string} selector
+ * @param {string} s
  * @return {Element | null}
  */
 const $ = (s) => document.querySelector(s);
@@ -21,7 +21,7 @@ const $ = (s) => document.querySelector(s);
 /**
  * Format a number using the French locale.
  *
- * @param {number} value
+ * @param {number} n
  * @return {string}
  */
 const fmt = (n) => n.toLocaleString("fr-FR");
@@ -159,6 +159,11 @@ const quartiers = [
 ];
 let filter = "Douala";
 
+/**
+ * Render filter buttons for the available districts.
+ *
+ * @return {void}
+ */
 function renderChips() {
     $("#chips").innerHTML = quartiers
         .map(
@@ -167,6 +172,12 @@ function renderChips() {
         )
         .join("");
 }
+
+/**
+ * Render the listings matching the selected district and update the result count.
+ *
+ * @return {void}
+ */
 function renderGrid() {
     const list = L.filter((l) => filter === "Douala" || l.q === filter);
     $("#count").textContent =
@@ -195,6 +206,12 @@ renderChips();
 renderGrid();
 
 /* Avis (exemples) : 2 avis à la fois, pagination */
+/**
+ * Escape HTML-sensitive characters in review text.
+ *
+ * @param {string} s
+ * @return {string}
+ */
 const esc = (s) =>
     s.replace(
         /[&<>"']/g,
@@ -207,6 +224,12 @@ const esc = (s) =>
                 "'": "&#39;",
             })[c],
     );
+/**
+ * Render a five-star display for a rating.
+ *
+ * @param {number} r
+ * @return {string}
+ */
 const stars = (r) =>
     `<span class="stars" role="img" aria-label="${r} sur 5">${"★".repeat(r)}${"☆".repeat(5 - r)}</span>`;
 const dist = { 5: 27, 4: 7, 3: 1, 2: 1, 1: 0 };

@@ -5,10 +5,13 @@ namespace App\Policies;
 use App\Models\Review;
 use App\Models\User;
 
+/**
+ * Deny all review operations until review authorization is implemented.
+ */
 class ReviewPolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * Deny access to review listings.
      */
     public function viewAny(User $user): bool
     {
@@ -16,7 +19,7 @@ class ReviewPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Deny access to an individual review.
      */
     public function view(User $user, Review $review): bool
     {
@@ -24,7 +27,7 @@ class ReviewPolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * Deny review creation.
      */
     public function create(User $user): bool
     {
@@ -32,7 +35,7 @@ class ReviewPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Deny review updates.
      */
     public function update(User $user, Review $review): bool
     {
@@ -40,7 +43,7 @@ class ReviewPolicy
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Deny review deletion.
      */
     public function delete(User $user, Review $review): bool
     {
@@ -48,7 +51,7 @@ class ReviewPolicy
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * Deny review restoration.
      */
     public function restore(User $user, Review $review): bool
     {
@@ -56,7 +59,7 @@ class ReviewPolicy
     }
 
     /**
-     * Determine whether the user can permanently delete the model.
+     * Deny permanent review deletion.
      */
     public function forceDelete(User $user, Review $review): bool
     {

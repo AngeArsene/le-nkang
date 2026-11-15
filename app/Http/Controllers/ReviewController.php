@@ -6,10 +6,13 @@ use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Review;
 
+/**
+ * Scaffold for review resource actions, which are not implemented yet.
+ */
 class ReviewController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * No review listing action is implemented.
      */
     public function index()
     {
@@ -17,7 +20,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * No review creation form action is implemented.
      */
     public function create()
     {
@@ -25,7 +28,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * No review storage action is implemented.
      */
     public function store(StoreReviewRequest $request)
     {
@@ -33,7 +36,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * No review detail action is implemented.
      */
     public function show(Review $review)
     {
@@ -41,7 +44,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * No review editing form action is implemented.
      */
     public function edit(Review $review)
     {
@@ -49,7 +52,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * No review update action is implemented.
      */
     public function update(UpdateReviewRequest $request, Review $review)
     {
@@ -57,7 +60,7 @@ class ReviewController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * No review deletion action is implemented.
      */
     public function destroy(Review $review)
     {

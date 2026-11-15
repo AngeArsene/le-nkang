@@ -87,7 +87,7 @@ class AnnouncementBrowserTest extends DuskTestCase
     }
 
     /**
-     * Confirm a favorite toggle keeps the singular label when the count stays at one.
+     * Assert the label is singular before and after toggling from an initial count of one.
      */
     public function testClickingAddToFavoritesKeepsLabelSingularFromZeroToOne(): void
     {

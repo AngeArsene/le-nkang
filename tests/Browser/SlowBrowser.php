@@ -9,6 +9,9 @@ use Laravel\Dusk\Browser;
  */
 class SlowBrowser extends Browser
 {
+    /**
+     * Default pause applied after browser interactions, in milliseconds.
+     */
     private const DEFAULT_DELAY_MS = 5000;
 
     /**
@@ -23,6 +26,7 @@ class SlowBrowser extends Browser
      * Visit the given URL and pause briefly so the page settles.
      *
      * @param  mixed  ...$args
+     * @return $this
      */
     public function visit(...$args)
     {
@@ -35,6 +39,7 @@ class SlowBrowser extends Browser
      * Click an element and pause briefly after the interaction.
      *
      * @param  mixed  ...$args
+     * @return $this
      */
     public function click(...$args)
     {
