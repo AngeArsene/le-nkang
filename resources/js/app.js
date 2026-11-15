@@ -257,9 +257,8 @@ let revPage = 0;
  * @return {void}
  */
 function renderReviews() {
-    const total = Object.values(dist).reduce((a, b) => a + b, 0);
-    const avg =
-        Object.entries(dist).reduce((a, [k, v]) => a + k * v, 0) / total;
+    const total = parseInt($("[data-total]").textContent);
+    const avg = parseFloat($("[data-avg]").textContent);
     const avgTxt = avg.toFixed(1).replace(".", ",");
     $("#revSum").innerHTML = `
     <div class="rs-top"><b>${avgTxt}</b><span>sur 5</span></div>

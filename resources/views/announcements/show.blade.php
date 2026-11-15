@@ -225,7 +225,7 @@
                             </span>
                         </li>
                         <li>Publiée {{ $announcement->created_at->diffForHumans() }}</li>
-                        <li><a href="#avis">★ <span data-avg>4,7</span> · <span data-total>36</span> avis</a></li>
+                        <li><a href="#avis">★ <span data-avg>{{ number_format($announcement->averageRating(), 1, ',', ' ') }}</span> · <span data-total>{{ $announcement->reviews_count }}</span> avis</a></li>
                     </ul>
                 </div>
             </header>
