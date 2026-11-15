@@ -10,6 +10,9 @@ use Laravel\Dusk\TestCase as BaseTestCase;
 use PHPUnit\Framework\Attributes\BeforeClass;
 use Tests\Browser\SlowBrowser;
 
+/**
+ * Base Dusk configuration for the project's browser-driven announcement tests.
+ */
 abstract class DuskTestCase extends BaseTestCase
 {
     /**
@@ -24,7 +27,7 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
-     * Create the RemoteWebDriver instance.
+     * Build the Selenium Chrome driver used by browser tests.
      */
     protected function driver(): RemoteWebDriver
     {
@@ -48,6 +51,11 @@ abstract class DuskTestCase extends BaseTestCase
         );
     }
 
+    /**
+     * Create the browser wrapper used for delayed interaction checks.
+     *
+     * @param mixed $driver
+     */
     protected function newBrowser($driver)
     {
         return new SlowBrowser($driver);

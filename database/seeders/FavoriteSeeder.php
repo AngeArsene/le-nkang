@@ -6,6 +6,9 @@ use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
+/**
+ * Populate the favorites table with sample relationships across seeded users and listings.
+ */
 class FavoriteSeeder extends Seeder
 {
     /**

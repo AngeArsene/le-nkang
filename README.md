@@ -4,7 +4,7 @@
 
 ## What the app does
 
-Le Nkang is an adults-only listings directory for Cameroon. The app serves public announcement pages at `/announcements/{slug}`, renders a polished listing layout with gallery, review, and contact details, and tracks both views and saves to a favorites list; the root `/` route still resolves to the landing index view.
+Le Nkang is an adults-only listings directory for Cameroon. The app serves public announcement pages at `/announcements/{slug}`, renders a polished listing layout with gallery, review, and contact details, and tracks both views and saves to a favorites list; the root `/` route still resolves to the landing index view. Visitors can also save listings to favorites and revisit a page without the same guest view being counted again.
 
 ## Features
 
@@ -15,6 +15,7 @@ Le Nkang is an adults-only listings directory for Cameroon. The app serves publi
 - [`App\Models\Announcement`](app/Models/Announcement.php) exposes a `favorites()` relation through [`app/Models/Favorite.php`](app/Models/Favorite.php), and [`addToFavorites(User $user)`](app/Models/Announcement.php) stores a unique `user_id` / `announcement_id` row via [`database/migrations/2026_11_08_162439_create_favorites_table.php`](database/migrations/2026_11_08_162439_create_favorites_table.php).
 - [`database/seeders/DatabaseSeeder.php`](database/seeders/DatabaseSeeder.php) calls [`AnnouncementSeeder`](database/seeders/AnnouncementSeeder.php), which seeds ten sample announcements via [`AnnouncementFactory`](database/factories/AnnouncementFactory.php); the factory generates a unique slug, title, and paragraph-length description.
 - [`resources/views/announcements/show.blade.php`](resources/views/announcements/show.blade.php), the Blade components in [`resources/views/components/announcements/`](resources/views/components/announcements), and [`resources/js/app.js`](resources/js/app.js) render the favorites count and allow a guest to toggle a listing in favorites from the public detail page.
+- [`App\Actions\IncrementViewsCount`](app/Actions/IncrementViewsCount.php) remembers recently viewed announcement IDs in a cookie so the same guest browser only adds one view per listing within the retention window, while [`database/seeders/FavoriteSeeder.php`](database/seeders/FavoriteSeeder.php) and [`database/seeders/DatabaseSeeder.php`](database/seeders/DatabaseSeeder.php) populate seeded favorite relationships for sample announcements.
 - [`App\Policies\AnnouncementPolicy`](app/Policies/AnnouncementPolicy.php) allows guests to view a listing while leaving create/update/delete actions blocked, so the public read flow is intentionally open without a login system.
 - `DB_CONNECTION` is still `sqlite` in [`.env.example`](.env.example); Laravel's default database configuration remains available for MySQL, MariaDB, PostgreSQL, and SQL Server.
 - [`tests/Feature/AnnouncementTest.php`](tests/Feature/AnnouncementTest.php) verifies favorite counts in the HTTP flow, and [`tests/Browser/AnnouncementBrowserTest.php`](tests/Browser/AnnouncementBrowserTest.php) validates the same behavior in a Dusk browser session.
@@ -37,6 +38,7 @@ Le Nkang is an adults-only listings directory for Cameroon. The app serves publi
     domain-organization/SKILL.md                  Domain-based action and DTO guidance
 app/
   Actions/Action.php                              # Base action class
+  Actions/IncrementViewsCount.php                 # Prevents duplicate guest views via cookie tracking
   Actions/ViewAnnouncement.php                    # Loads favorites and increments the view count
   Concerns/ResolvesViewFromRoute.php             # Resolves route-specific Blade views
   Http/Controllers/AnnouncementController.php    # Public detail controller for listings
@@ -59,7 +61,8 @@ database/
     2026_11_08_162439_create_favorites_table.php  # Adds the favorites pivot table
   seeders/
     AnnouncementSeeder.php                        # Seeds ten sample listings
-    DatabaseSeeder.php                            # Runs announcement seeding
+    DatabaseSeeder.php                            # Runs announcement seeding and seeded favorites
+    FavoriteSeeder.php                             # Seeds favorite relationships for sample listings
 resources/
   css/app.css                                     # Tailwind CSS entry point
   js/app.js                                       # Client-side listing interactions and favorites toggle
@@ -78,9 +81,11 @@ routes/
   web.php                                         # Home route and announcement detail routes
 tests/
   Browser/
-    AnnouncementBrowserTest.php                   # Verifies the favorites toggle in the browser
+    AnnouncementBrowserTest.php                   # Verifies favorites and view counting in the browser
+    Pages/AnnouncementPage.php                    # Browser page object for the announcement detail page
     Pages/HomePage.php                            # Browser page object for the home route
     Pages/Page.php                                # Base Dusk page object
+    SlowBrowser.php                               # Adds pauses after visits and clicks in browser tests
   DuskTestCase.php                                # Shared Dusk browser setup
   Feature/AnnouncementTest.php                    # Covers slug URLs, access, escaping, and favorite counts
   Feature/ExampleTest.php                         # Checks that / returns HTTP 200
@@ -133,4 +138,4 @@ Laravel Boost is installed. [`boost.json`](boost.json) enables guidelines, altho
 
 Pest is not installed.
 
-_Last synced with commit aa16dde (2026-11-11)_
+_Last synced with commit 4c235ea (2026-11-15)_

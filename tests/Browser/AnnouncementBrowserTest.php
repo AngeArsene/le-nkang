@@ -54,6 +54,11 @@ class AnnouncementBrowserTest extends DuskTestCase
         });
     }
 
+    /**
+     * Provide the expected French labels for favorite totals.
+     *
+     * @return array<string, array{int, string}>
+     */
     public static function favoritesLabelProvider(): array
     {
         return [
@@ -64,6 +69,9 @@ class AnnouncementBrowserTest extends DuskTestCase
         ];
     }
 
+    /**
+     * Confirm the favorites label uses singular and plural forms correctly.
+     */
     #[DataProvider('favoritesLabelProvider')]
     public function testFavoritesLabelIsSingularForZeroOrOneAndPluralOtherwise(int $numberOfFavorites, string $expectedLabel): void
     {
@@ -78,6 +86,9 @@ class AnnouncementBrowserTest extends DuskTestCase
         });
     }
 
+    /**
+     * Confirm a favorite toggle keeps the singular label when the count stays at one.
+     */
     public function testClickingAddToFavoritesKeepsLabelSingularFromZeroToOne(): void
     {
         $announcement = Announcement::factory()->create();
@@ -94,6 +105,9 @@ class AnnouncementBrowserTest extends DuskTestCase
         });
     }
 
+    /**
+     * Confirm the label changes to plural after the count goes above one.
+     */
     public function testClickingAddToFavoritesChangesLabelToPluralFromOneToTwo(): void
     {
         $announcement = Announcement::factory()->create();
