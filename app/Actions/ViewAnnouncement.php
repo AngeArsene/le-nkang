@@ -23,6 +23,7 @@ class ViewAnnouncement extends Action
     public function handle(Announcement $announcement): void
     {
         $announcement->loadCount('favorites');
+        $announcement->loadCount('reviews');
 
         $this->incrementViewsCount->handle($announcement);
     }

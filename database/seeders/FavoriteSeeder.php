@@ -18,7 +18,7 @@ class FavoriteSeeder extends Seeder
     {
         $users = User::all();
 
-        Announcement::all()->each(function ($announcement) use ($users) {
+        Announcement::each(function ($announcement) use ($users) {
             $count = random_int(0, $users->count());
 
             if ($count > 0) {

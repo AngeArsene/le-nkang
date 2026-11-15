@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Override;
 
 /**
@@ -27,10 +27,20 @@ class Announcement extends Model
         return 'slug';
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function averageRating(): float
+    {
+        return $this->reviews()->avg('note') ?? 0;
+    }
+
     /**
      * Retrieve the users who have saved this announcement as a favorite.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this>
      */
     public function favorites(): BelongsToMany
     {
