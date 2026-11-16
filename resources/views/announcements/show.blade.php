@@ -1,4 +1,9 @@
 <x-layouts.main>
+    @push('scripts')
+        <script>
+            window.App = {{ Js::from(['distribution' => $announcement->ratingDistribution()]) }};
+        </script>
+    @endpush
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <defs>
             <symbol id="i-home" viewBox="0 0 24 24">

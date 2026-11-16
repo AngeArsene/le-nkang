@@ -232,7 +232,8 @@ const esc = (s) =>
  */
 const stars = (r) =>
     `<span class="stars" role="img" aria-label="${r} sur 5">${"★".repeat(r)}${"☆".repeat(5 - r)}</span>`;
-const dist = { 5: 27, 4: 7, 3: 1, 2: 1, 1: 0 };
+let dist = window.App?.distribution ?? { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+dist = Object.fromEntries([5, 4, 3, 2, 1].map((k) => [k, dist[k] || 0]));
 const reviews = [
     {
         n: "Moïse K.",

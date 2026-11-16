@@ -46,6 +46,20 @@ class Announcement extends Model
     }
 
     /**
+     * Get the distribution of review scores for this announcement.
+     *
+     * @return array<int, int>  An associative array where keys are review scores and values are their counts.
+     */
+    public function ratingDistribution(): array
+    {
+        return $this->reviews()
+            ->selectRaw('note, COUNT(*) as count')
+            ->groupBy('note')
+            ->pluck('count', 'note')
+            ->toArray();
+    }
+
+    /**
      * Retrieve the users who have saved this announcement as a favorite.
      *
      * @return BelongsToMany<User, $this>
