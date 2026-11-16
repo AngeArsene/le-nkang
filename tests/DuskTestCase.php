@@ -8,7 +8,6 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Support\Collection;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use PHPUnit\Framework\Attributes\BeforeClass;
-use Tests\Browser\SlowBrowser;
 
 /**
  * Base Dusk configuration for the project's browser-driven announcement tests.
