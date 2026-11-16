@@ -40,6 +40,8 @@ class AnnouncementPage extends Page
             '@favoriteCount' => '#fav [data-likes]',
             '@metaFavoriteCount' => '.meta [data-likes]',
             '@favoritesCountLabel' => '[data-favorites-label]',
+            '@addReviewButton' => 'button#revBtn',
+            '@addReviewForm' => 'form#revForm',
         ];
     }
 }

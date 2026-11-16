@@ -281,8 +281,8 @@ let revPage = 0;
  * @return {void}
  */
 function renderReviews() {
-    const total = parseInt($("[data-total]").textContent);
-    const avg = parseFloat($("[data-avg]").textContent);
+    const total = parseInt(window.App.total);
+    const avg = parseFloat(window.App.average);
     const avgTxt = avg.toFixed(1).replace(".", ",");
     $("#revSum").innerHTML = `
     <div class="rs-top"><b>${avgTxt}</b><span>sur 5</span></div>
@@ -345,6 +345,8 @@ $("#revBtn").onclick = (e) => {
 };
 $("#revForm").addEventListener("submit", (e) => {
     e.preventDefault();
+    window.App.total++;
+    window.App.average = (window.App.average * (window.App.total - 1) + +e.target.elements.rating.value) / window.App.total;
     const f = e.target,
         r = +f.elements.rating.value,
         t = f.elements.text.value.trim();

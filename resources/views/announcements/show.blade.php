@@ -1,9 +1,14 @@
 <x-layouts.main>
     @push('scripts')
         <script>
-            window.App = {{ Js::from(['distribution' => $announcement->ratingDistribution()]) }};
+            window.App = {{ Js::from([
+                            'average' => $announcement->averageRating(),
+                            'total' => $announcement->reviews_count,
+                            'distribution' => $announcement->ratingDistribution(),
+                        ]) }};
         </script>
     @endpush
+
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <defs>
             <symbol id="i-home" viewBox="0 0 24 24">
@@ -230,7 +235,15 @@
                             </span>
                         </li>
                         <li>Publiée {{ $announcement->created_at->diffForHumans() }}</li>
-                        <li><a href="#avis">★ <span data-avg>{{ number_format($announcement->averageRating(), 1, ',', ' ') }}</span> · <span data-total>{{ $announcement->reviews_count }}</span> avis</a></li>
+                        <li>
+                            <a href="#avis">
+                                ★
+                                <span data-avg>{{ number_format($announcement->averageRating(), 1, ',', ' ') }}</span>
+                                ·
+                                <span data-total>{{ $announcement->reviews_count }}</span>
+                                avis
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </header>
