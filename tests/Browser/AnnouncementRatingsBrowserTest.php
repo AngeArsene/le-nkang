@@ -93,7 +93,7 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
 
         $distribution = array_combine(
             [5, 4, 3, 2, 1],
-            array_map(fn (int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
+            array_map(fn(int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
         );
 
         $this->browse(function (Browser $browser) use ($announcement, $distribution, $total) {
@@ -110,13 +110,75 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
 
             $distribution[$randomNote] += 1;
 
-            $browser->assertSeeIn('div#revSum p.sm', ($total+1)." avis")
-                    ->assertSeeIn('span[data-total]', (string) $total + 1);
+            $browser->assertSeeIn('div#revSum p.sm', ($total + 1) . " avis")
+                ->assertSeeIn('span[data-total]', (string) $total + 1);
 
             foreach ([1 => 5, 4, 3, 2, 1] as $index => $note) {
                 $browser->assertSeeIn("ul.dist li:nth-child($index) span", (string) $note)
                     ->assertSeeIn("ul.dist li:nth-child($index) b", (string) $distribution[$note]);
             }
+        });
+    }
+
+    public static function reviewSummaryWithAverageProvider(): array
+    {
+        return [
+            'mixed ratings' => [[5 => 27, 4 => 7, 3 => 1, 2 => 1], 36, '4,7'],
+            'only excellent' => [[5 => 2], 2, '5,0'],
+            'low ratings' => [[1 => 1, 2 => 1], 2, '1,5'],
+            'single review' => [[3 => 1], 1, '3,0'],
+        ];
+    }
+
+    #[DataProvider('reviewSummaryWithAverageProvider')]
+    public function testAddingAReviewUpdatesTheAverageRating(array $distribution, int $total, string $average): void
+    {
+        $announcement = Announcement::factory()->create();
+
+        foreach ($distribution as $note => $count) {
+            Review::factory()
+                ->count($count)
+                ->for($announcement)
+                ->create(['note' => $note]);
+        }
+
+        $distribution = array_combine(
+            [5, 4, 3, 2, 1],
+            array_map(fn(int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
+        );
+
+        $this->browse(function (Browser $browser) use ($announcement, $distribution, $average) {
+            $browser->visit(new AnnouncementPage($announcement))
+                ->scrollTo('h2#t-info');
+
+            $randomNotes = array_map(
+                fn() => random_int(1, 5),
+                range(1, random_int(1, 5)),
+            );
+
+            foreach ($randomNotes as $note) {
+                $distribution[$note]++;
+            }
+
+            $weightedSum = 0;
+            foreach ($distribution as $note => $count) {
+                $weightedSum += $note * $count;
+            }
+
+            $new_average = number_format($weightedSum / array_sum($distribution), 1, ',', '');
+
+            foreach ($randomNotes as $randomNote) {
+                $browser->click('@addReviewButton')
+                    ->waitFor('@addReviewForm')
+                    ->select('rating', (string) $randomNote)
+                    ->type('text', fake()->text(400))
+                    ->click('button[type="submit"]');
+            }
+
+            dump($average, $new_average);
+
+            $browser->assertSeeIn('span[data-avg]', $new_average)
+                ->assertSeeIn('div#revSum div.rs-top b', $new_average);
         });
     }
 }
