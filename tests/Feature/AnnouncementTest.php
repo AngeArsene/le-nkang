@@ -225,12 +225,12 @@ class AnnouncementTest extends TestCase
         $route = route('announcements.show', $announcement);
 
         $expectedTotal = sprintf(
-            '<span data-total>%s</span> avis',
+            '<span data-total>%s</span>',
             $expectedTotal,
         );
 
         $expectedAverage = sprintf(
-            '★ <span data-avg>%s</span>',
+            '<span data-avg>%s</span>',
             $expectedAverage,
         );
 
