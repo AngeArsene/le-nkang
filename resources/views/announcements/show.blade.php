@@ -310,9 +310,9 @@
                 </section>
 
                 <section class="card pink views" aria-labelledby="t-views">
-                    <h2 id="t-views">Vues</h2>
+                    <h2 id="t-views">{{ trans_choice('announcements.views_label', $announcement->views_count, [], 'fr') }}</h2>
 
-                    <p class="num">1 284 <small>au total</small></p>
+                    <p class="num">{{ $announcement->views_count }} <small>au total</small></p>
                     <svg
                         class="chart"
                         viewBox="0 0 300 96"

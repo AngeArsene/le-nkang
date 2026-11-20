@@ -175,8 +175,6 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
                     ->click('button[type="submit"]');
             }
 
-            dump($average, $new_average);
-
             $browser->assertSeeIn('span[data-avg]', $new_average)
                 ->assertSeeIn('div#revSum div.rs-top b', $new_average);
         });
