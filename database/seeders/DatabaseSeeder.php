@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AnnouncementSeeder::class,
+            AnnouncementViewSeeder::class,
             FavoriteSeeder::class,
             ReviewSeeder::class,
         ]);

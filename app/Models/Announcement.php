@@ -27,6 +27,12 @@ class Announcement extends Model
         return 'slug';
     }
 
+    public function dailyViews(): HasMany
+    {
+        return $this->hasMany(AnnouncementView::class);
+    }
+
+
     /**
      * Retrieve the reviews associated with this announcement.
      *
