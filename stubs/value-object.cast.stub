@@ -1,0 +1,35 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ valueObject }};
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
+
+/**
+ * @implements CastsAttributes<{{ valueObjectClass }}, {{ valueObjectClass }}|{{ type }}>
+ */
+class {{ class }} implements CastsAttributes
+{
+    /**
+     * Cast the given value to the value object.
+     */
+    public function get(Model $model, string $key, mixed $value, array $attributes): ?{{ valueObjectClass }}
+    {
+        return $value === null ? null : new {{ valueObjectClass }}(({{ type }}) $value);
+    }
+
+    /**
+     * Prepare the given value for storage.
+     */
+    public function set(Model $model, string $key, mixed $value, array $attributes): ?{{ type }}
+    {
+        return match (true) {
+            $value === null => null,
+            $value instanceof {{ valueObjectClass }} => $value->value,
+            {{ typeCheck }} => (new {{ valueObjectClass }}($value))->value,
+            default => throw new InvalidArgumentException("The [{$key}] attribute must be a {{ valueObjectClass }} or a {{ type }}."),
+        };
+    }
+}
