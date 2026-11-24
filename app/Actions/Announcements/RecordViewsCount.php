@@ -11,6 +11,8 @@ class RecordViewsCount extends Action
 {
     /**
      * Create a new action instance.
+     *
+     * @param  VisitorId  $visitorId  Visitor UUID assigned to the current request.
      */
     public function __construct(
         private readonly VisitorId $visitorId,
@@ -20,6 +22,9 @@ class RecordViewsCount extends Action
 
     /**
      * Execute the action.
+     *
+     * @param  Announcement  $announcement  Listing whose view count should be updated.
+     * @param  User|null  $user  Authenticated viewer, when available.
      */
     public function handle(Announcement $announcement, ?User $user = null): void
     {

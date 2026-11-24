@@ -27,11 +27,15 @@ class Announcement extends Model
         return 'slug';
     }
 
+    /**
+     * Retrieve the persisted visitor and user view records for this listing.
+     *
+     * @return HasMany<AnnouncementView, $this>
+     */
     public function dailyViews(): HasMany
     {
         return $this->hasMany(AnnouncementView::class);
     }
-
 
     /**
      * Retrieve the reviews associated with this announcement.
@@ -54,7 +58,7 @@ class Announcement extends Model
     /**
      * Get the distribution of review scores for this announcement.
      *
-     * @return array<int, int>  An associative array where keys are review scores and values are their counts.
+     * @return array<int, int> An associative array where keys are review scores and values are their counts.
      */
     public function ratingDistribution(): array
     {

@@ -6,6 +6,9 @@ use Illuminate\Container\Attributes\Singleton;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
+/**
+ * Represents a valid UUID assigned to one visitor.
+ */
 #[Singleton]
 final readonly class VisitorId
 {
@@ -19,11 +22,17 @@ final readonly class VisitorId
         }
     }
 
+    /**
+     * Return the visitor UUID as a string.
+     */
     public function __toString(): string
     {
         return $this->value;
     }
 
+    /**
+     * Determine whether this visitor UUID equals another instance.
+     */
     public function equals(self $other): bool
     {
         return $this->value === $other->value;

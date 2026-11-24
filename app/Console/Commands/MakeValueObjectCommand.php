@@ -9,6 +9,9 @@ use Override;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * Generate immutable primitive value objects and optional Eloquent casts.
+ */
 #[AsCommand(name: 'make:value-object', description: 'Create a new value object class')]
 class MakeValueObjectCommand extends GeneratorCommand
 {
@@ -43,18 +46,31 @@ class MakeValueObjectCommand extends GeneratorCommand
         return null;
     }
 
+    /**
+     * Use the value-object template from the application stubs.
+     */
     #[Override]
     protected function getStub()
     {
         return base_path('stubs/value-object.stub');
     }
 
+    /**
+     * Place generated value objects in the App\ValueObjects namespace.
+     *
+     * @param  class-string  $rootNamespace  Root namespace for generated classes.
+     */
     #[Override]
     protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace.'\ValueObjects';
     }
 
+    /**
+     * Inject the selected primitive type into the value-object template.
+     *
+     * @param  class-string  $name  Name of the class being generated.
+     */
     #[Override]
     protected function buildClass($name)
     {

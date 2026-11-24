@@ -7,6 +7,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use RuntimeException;
 
+/**
+ * Configure application-scoped bindings and bootstrapping.
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**

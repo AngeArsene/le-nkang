@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Represents one persisted visit to an announcement by a visitor or user.
+ */
 #[Fillable(['announcement_id', 'user_id', 'visitor_id', 'viewed_on'])]
 class AnnouncementView extends Model
 {
@@ -16,6 +19,11 @@ class AnnouncementView extends Model
 
     public $timestamps = false;
 
+    /**
+     * Cast the viewed date and visitor UUID attributes.
+     *
+     * @return array<string, class-string|string>
+     */
     protected function casts(): array
     {
         return [
@@ -24,6 +32,11 @@ class AnnouncementView extends Model
         ];
     }
 
+    /**
+     * Retrieve the announcement associated with this view.
+     *
+     * @return BelongsTo<Announcement, $this>
+     */
     public function announcement(): BelongsTo
     {
         return $this->belongsTo(Announcement::class);

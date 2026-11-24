@@ -10,6 +10,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Browser\Pages\AnnouncementPage;
 use Tests\DuskTestCase;
 
+/**
+ * Verify announcement rating summaries and client-side review updates in the browser.
+ */
 class AnnouncementRatingsBrowserTest extends DuskTestCase
 {
     use DatabaseMigrations;
@@ -44,8 +47,8 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
     /**
      * Confirms the displayed rating distribution matches the announcement's reviews.
      *
-     * @param array<int, int> $distribution  An associative array where keys are review scores and values are their counts.
-     * @param int $total  The total number of reviews.
+     * @param  array<int, int>  $distribution  An associative array where keys are review scores and values are their counts.
+     * @param  int  $total  The total number of reviews.
      */
     #[DataProvider('reviewSummaryProvider')]
     public function testDisplayedRatingDistributionMatchesTheAnnouncementReviews(array $distribution, int $total): void
@@ -65,7 +68,7 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
 
             foreach ([5, 4, 3, 2, 1] as $index => $note) {
                 $count = $distribution[$note] ?? 0;
-                $row = 'ul.dist li:nth-child(' . ($index + 1) . ')';
+                $row = 'ul.dist li:nth-child('.($index + 1).')';
 
                 $browser->assertSeeIn("$row span", (string) $note)
                     ->assertSeeIn("$row b", (string) $count);
@@ -74,11 +77,17 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
                     "return document.querySelector('$row i').style.getPropertyValue('--w');"
                 )[0];
 
-                $this->assertSame(round(($count / $total) * 100) . '%', trim($width));
+                $this->assertSame(round(($count / $total) * 100).'%', trim($width));
             }
         });
     }
 
+    /**
+     * Confirms adding a review updates the total and rating distribution.
+     *
+     * @param  array<int, int>  $distribution  Existing review counts by rating.
+     * @param  int  $total  Existing review count.
+     */
     #[DataProvider('reviewSummaryProvider')]
     public function testAddingAReviewIncrementsTheTotalAndUpdatesTheRatingDistribution(array $distribution, int $total): void
     {
@@ -93,7 +102,7 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
 
         $distribution = array_combine(
             [5, 4, 3, 2, 1],
-            array_map(fn(int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
+            array_map(fn (int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
         );
 
         $this->browse(function (Browser $browser) use ($announcement, $distribution, $total) {
@@ -130,6 +139,13 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
         ];
     }
 
+    /**
+     * Confirms adding reviews updates the displayed average rating.
+     *
+     * @param  array<int, int>  $distribution  Existing review counts by star rating.
+     * @param  int  $total  Existing review count.
+     * @param  string  $average  Expected initial average label.
+     */
     #[DataProvider('reviewSummaryWithAverageProvider')]
     public function testAddingAReviewUpdatesTheAverageRating(array $distribution, int $total, string $average): void
     {
@@ -144,7 +160,7 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
 
         $distribution = array_combine(
             [5, 4, 3, 2, 1],
-            array_map(fn(int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
+            array_map(fn (int $k) => $distribution[$k] ?? 0, [5, 4, 3, 2, 1])
         );
 
         $this->browse(function (Browser $browser) use ($announcement, $distribution, $average) {
@@ -152,7 +168,7 @@ class AnnouncementRatingsBrowserTest extends DuskTestCase
                 ->scrollTo('h2#t-info');
 
             $randomNotes = array_map(
-                fn() => random_int(1, 5),
+                fn () => random_int(1, 5),
                 range(1, random_int(1, 5)),
             );
 
