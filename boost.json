@@ -21,11 +21,13 @@
         "design-announcement-show",
         "domain-organization",
         "error-views",
+        "laravel-collection-pipelines",
         "oop-affordances",
         "pagination-views",
         "tdd-laravel",
         "ui-ux-pro-max",
         "update-docblocks",
-        "update-readme"
+        "update-readme",
+        "value-objects"
     ]
 }
