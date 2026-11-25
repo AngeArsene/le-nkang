@@ -49,7 +49,7 @@ class AnnouncementController extends Controller
      */
     public function show(Announcement $announcement, #[CurrentUser] ?User $user, AnnouncementsView $action): View
     {
-        $this->authorize('view', $announcement);
+        $this->authorizeForUser($user, 'view', $announcement);
 
         $action->handle($announcement, $user);
 
