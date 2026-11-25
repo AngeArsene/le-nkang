@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 /**
- * Verifies announcement URLs, access, rendering, publication dates, and review summaries.
+ * Verifies announcement routing, guest access, rendering, favorites, publication dates, and review summaries.
  */
 class AnnouncementTest extends TestCase
 {
