@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View;
+namespace App\View\Candidates;
 
 use Illuminate\Support\Facades\View;
 

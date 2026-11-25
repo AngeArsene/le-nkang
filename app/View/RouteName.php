@@ -2,6 +2,11 @@
 
 namespace App\View;
 
+use App\View\Candidates\ExactViewCandidate;
+use App\View\Candidates\HomeViewCandidate;
+use App\View\Candidates\NestedHomeViewCandidate;
+use App\View\Candidates\ViewCandidate;
+
 /**
  * Resolves a route name to the first matching view name.
  */

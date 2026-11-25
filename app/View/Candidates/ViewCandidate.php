@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View;
+namespace App\View\Candidates;
 
 /**
  * Describes a route-specific strategy for resolving a view name.
